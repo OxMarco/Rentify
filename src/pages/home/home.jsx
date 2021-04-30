@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Connector from '../../components/connector/connector';
+import TorusLogin from '../../components/torus/torus';
 import './home.css';
 
 export default class Home extends Component {
+
     render() {
         return (
             <main className="page-content">
@@ -14,7 +15,7 @@ export default class Home extends Component {
                     </div>
                 </div>
 
-                <Connector />
+                <TorusLogin />
             </main>
         );
     }
