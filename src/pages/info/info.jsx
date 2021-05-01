@@ -1,53 +1,47 @@
 import React, { Component } from 'react';
-import './info.css';
+import TorusLogin from '../../components/torus/torus';
+const SuperfluidSDK = require("@superfluid-finance/js-sdk");
+const Web3 = require("web3");
 
 export default class Info extends Component {
+    buy(id) {
+        if(this.props.address === '') {
+            alert('login first');
+            return;
+        }
+
+        const sf = new SuperfluidSDK.Framework({
+            web3: new Web3(window.ethereum),
+        });
+        sf.initialize()
+
+        const sfUser = sf.user({
+            address: this.props.address,
+            token: '0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00'
+        });
+
+        const details = sfUser.details();
+        console.log(details);
+    }
+
     render() {
         return (
-            <div class="container">
-
-            <div class="info-card-container">
-
-                <div class="info-card">
-
-                    <div class="info-card__image-exposure info-card__content">
-                        <div class="info-card__image-exposure--blend">
-                        </div>
-                        <div class="info-card__image-exposure__item">
-                        </div>
-
-                    </div>
-
-                    <div class="info-card__bio info-card__content">
-                        <h2 class="info-card__bio--title">John Legend</h2>
-
-                        <p class="info-card__bio--copy">John Roger Stephens (born December 28, 1978), better
-                            known by his stage name John Legend, is an American
-                            singer, songwriter and actor. He has won ten Grammy
-                            Awards, one Golden Globe, and one Academy Award. In
-                            2007, Legend received the Hal David Starlight Award
-                            from the Songwriters Hall of Fame.</p>
-
-                        <p class="info-card__bio--copy">Prior to the release of Legend's debut album, his
-                            career gained momentum through a series of
-                            successful collaborations with multiple established
-                            artists. He sang in Magnetic Man's "Getting Nowhere,"
-                            Kanye West's "All of the Lights", on Slum Village's
-                            "Selfish", and Dilated Peoples' "This Way". Other
-                            artists included Jay Z's "Encore", and he sang
-                            backing vocals on Alicia Keys' 2003 song "You Don't
-                            Know My Name", the Kanye West remix of Britney
-                            Spears' "Me Against the Music", and Fort Minor's
-                            "High Road". Legend played piano on Lauryn Hill's
-                            "Everything Is Everything".</p>
-
-                    </div>
-
-                    <span class="close"></span>
-                </div>
+        <>
+            <div>
+                <h2>Category</h2>
+                <img src="" />
+                <h1>title</h1>
+                <p>body</p>
+                <p>$100</p>
+                <ul>
+                    <li>aaa</li>
+                    <li>bbb</li>
+                </ul>
+                <button onClick={() => this.buy(1)}>Buy Now</button>
             </div>
 
-        </div>
+            <TorusLogin login={this.props.onLogin} address={this.props.address} />
+        </>
         );
     }
 }

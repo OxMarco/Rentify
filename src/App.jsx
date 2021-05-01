@@ -5,21 +5,27 @@ import Gallery from './pages/gallery/gallery';
 import Info from './pages/info/info';
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            address: '',
+        };
+
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    handleLogin(walletAddress) {
+        this.setState({address: walletAddress});
+    }
+
     render() {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route path="/info/:id">
-                        <Info />
-                    </Route>
-
-                    <Route path="/gallery">
-                        <Gallery />
-                    </Route>
-
-                    <Route path="/">
-                        <Home />
-                    </Route>
+                    <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} onLogin={this.handleLogin} />} />
+                    <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} onLogin={this.handleLogin} />} />
+                    <Route exact path="/" render={(_props) => <Home address={this.state.address} onLogin={this.handleLogin} />} />
                 </Switch>
             </BrowserRouter>
         );

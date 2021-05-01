@@ -1,7 +1,6 @@
 const Filestorage = require('@skalenetwork/filestorage.js');
 const Web3 = require('web3');
 
-
 export default class Skale {
     constructor(props) {
         super(props);
