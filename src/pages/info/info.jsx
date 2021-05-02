@@ -16,32 +16,10 @@ export default class Info extends Component {
     }
 
     async buy(id) {
-
-        /*
-        if(this.props.address === '') {
-            this.setState({ error: true })
-            return;
-        }
-        */
-
-        // new start
-
-        const torus = new Torus({});
-        await torus.init({
-          enableLogging: false,
-        });
-        await torus.setProvider({
-            host: "goerli", // default : 'mainnet'
-        });
-        await torus.login();
-        const web3 = new Web3(torus.provider);
-        const address = (await web3.eth.getAccounts())[0];
-
-        // new end
+        await this.props.login()
 
         const sf = new SuperfluidSDK.Framework({
-            // web3: new Web3(window.ethereum), - OLD
-            web3: web3 // NEW
+            web3: this.props.web3,
         });
         await sf.initialize()
 
@@ -55,8 +33,7 @@ export default class Info extends Component {
         });
 
         const sfUser = sf.user({
-            // address: walletAddress[0], - OLD
-            address: address,
+            address: this.props.address,
             token: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947'
         });
 
