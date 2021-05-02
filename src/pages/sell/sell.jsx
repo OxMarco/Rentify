@@ -7,8 +7,6 @@ export default class Sell extends Component {
     constructor (props) {
         super(props);
         this.state = { 
-            first_name: '',
-            last_name: '',
             address: '',
             latitude: '',
             longitude: '',
@@ -29,11 +27,32 @@ export default class Sell extends Component {
         fetch(`https://us1.locationiq.com/v1/search.php?key=pk.f9586cd00dbee8301b57de330d3112a7&format=json&q=${this.state.address}`)
         .then(response => response.json())
         .then((response) => {
-            console.log(response);
+            console.log(response[0]['lat']);
             this.setState({
                 latitude: response[0]['lat'],
                 longitude: response[0]['lon']
             });
+
+            const data = { 
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                country: this.state.country,
+                region: this.state.region,
+                zip: this.state.zip,
+                title: this.state.title,
+                description: this.state.description,
+                surface: this.state.surface,
+                price: this.state.price,
+                deposit: this.state.deposit,
+                image: ""
+            };
+
+            var tokens = JSON.parse(localStorage.getItem("tokens"));
+            if(tokens == null) tokens = [];
+            tokens.push(data);
+            localStorage.setItem("tokens", JSON.stringify(tokens));
+
+            e.target.reset();
         });
     }
 
@@ -53,9 +72,7 @@ export default class Sell extends Component {
     }
 
     render() {
-        const { first_name,
-                last_name,
-                address,
+        const { address,
                 country,
                 region,
                 zip,
@@ -80,23 +97,6 @@ export default class Sell extends Component {
                     <div className="col">
                         <h4 className="mb-3">Main Data</h4>
                         <form className="needs-validation" onSubmit={this.handleFormSubmit}>
-                            <div className="row">
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="first_name">First name</label>
-                                    <input autoFocus type="text" className="form-control" name="first_name" id="first_name" placeholder="John" min="2" max="50" value={first_name} onChange={this.handleChange} required />
-                                    <div className="invalid-feedback">
-                                        A valid first name is required.
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="last_name">Last name</label>
-                                    <input type="text" className="form-control" name="last_name" id="last_name" placeholder="Doe" min="2" max="50" value={last_name} onChange={this.handleChange} required />
-                                    <div className="invalid-feedback">
-                                        A valid last name is required.
-                                    </div>
-                                </div>
-                            </div>
 
                             <div className="mb-3">
                                 <label htmlFor="address">Address</label>

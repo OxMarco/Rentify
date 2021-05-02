@@ -38,9 +38,10 @@ function Map({ latitude, longitude, markers }) {
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-        {
-            markers.map(function(m){
-                return <Marker position={m.center} label={m.title} key={m.id} />;
+        {markers && markers.map(function(m){
+                const center = { lat: parseFloat(m.latitude), lng: parseFloat(m.longitude) };
+                console.log(center);
+                return <Marker position={center} label={m.title} key={m.price} />;
             })
         }
         <></>

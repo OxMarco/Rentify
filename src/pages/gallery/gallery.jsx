@@ -13,36 +13,32 @@ export default class Gallery extends Component {
             redirect_url: '',
             my_lat: 0,
             my_lng: 0,
-            tokens: [
-                {
-                    id: 1,
-                    title: 'token1',
-                    center: {
-                        lat: 10,
-                        lng: 10,
-                    },
-                    body: 'lorem ipsum dolor sit amet',
-                    price: 100,
-                    image: 'https://picsum.photos/seed/picsum/300/200',
-                }
-            ]
+            tokens: ''
         };
     }
 
     componentDidMount () {
+        var lat_t = 0, lon_t = 0;
         if ("geolocation" in navigator) {
-            var lat_t = 0, lon_t = 0;
             navigator.geolocation.getCurrentPosition(function(position) {
                 lat_t = position.coords.latitude;
                 lon_t = position.coords.longitude;
             });
 
-            this.setState({ my_lat: lat_t, my_lng: lon_t });
         }
+        this.setState({ my_lat: lat_t, my_lng: lon_t });
+
+        var tokens = JSON.parse(localStorage.getItem("tokens"));
+        this.setState({ tokens: tokens });
+        console.log(tokens);
     }
 
     viewDetails(id) {
         this.setState({redirect_param: id, redirect_url: 'info'});
+    }
+
+    remove(id) {
+        localStorage.clear();
     }
 
     render() {
@@ -62,11 +58,11 @@ export default class Gallery extends Component {
                 </div>
 
                 <div className="container">
-                    <div class="row">
-                        <div class="col-8">
+                    <div className="row">
+                        <div className="col-8">
                             <div className="card-deck mb-3 text-center">
 
-                                {tokens.map((token, i) =>
+                                {tokens && tokens.map((token, i) =>
                                 <div className="card mb-4 box-shadow" key={i}>
                                     <div className="card-header">
                                         <h4 className="my-0 font-weight-normal">Free</h4>
@@ -82,13 +78,15 @@ export default class Gallery extends Component {
                                             <li>Help center access</li>
                                         </ul>
                                         <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
+                                        <button type="button" className="btn btn-lg btn-block btn-outline-danger" onClick={() => this.remove(token.id)}>Remove</button>
+
                                     </div>
                                 </div>
                                 )}
 
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div className="col-4">
                             <Map latitude={my_lat} longitude={my_lng} markers={tokens} />
                         </div>
                     </div>
