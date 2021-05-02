@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import TorusLogin from '../../components/torus/torus';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 import './gallery.css';
 
 export default class Gallery extends Component {
@@ -33,33 +34,42 @@ export default class Gallery extends Component {
 
         return (
             <>
+                <Header />
+
+                <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                    <h2 className="display-4">Rent a Property</h2>
+                    <p className="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+                </div>
+
                 <div className="container">
-                    <div className="row row-cols-2">
+                    <div className="card-deck mb-3 text-center">
 
                         {tokens.map((token, i) =>
-                            <div className="col">
-                                <div className="card token">
-                                    <h5 className="card-header">Category</h5>
-                                    <img src={token.image} className="card-img-top" alt="token image" />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{token.title}</h5>
-                                        <p className="card-text">{token.body}</p>
-                                    </div>
-                                    <ul className="list-group list-group-flush">
-                                        <li className="list-group-item">${token.price}</li>
-                                    </ul>
-                                    <div className="card-body">
-                                        <a href="#" className="card-link">Buy</a>
-                                        <a onClick={() => this.viewDetails(token.id)} className="card-link">See More</a>
-                                    </div>
-                                </div>
+                        <div className="card mb-4 box-shadow">
+                            <div className="card-header">
+                                <h4 className="my-0 font-weight-normal">Free</h4>
                             </div>
+                            <img src="https://picsum.photos/seed/picsum/200/300" className="card-img-top" alt="the property" />
+                            <div className="card-body">
+                                <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ mo</small></h1>
+                                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                <ul className="list-unstyled mt-3 mb-4">
+                                    <li>10 users included</li>
+                                    <li>2 GB of storage</li>
+                                    <li>Email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
+                            </div>
+                        </div>
                         )}
 
                     </div>
+                    
+                    <footer className="pt-4 my-md-5 pt-md-5 border-top">
+                        <Footer />
+                    </footer>
                 </div>
-
-                <TorusLogin login={this.props.onLogin} address={this.props.address} />
             </>
         );
     }

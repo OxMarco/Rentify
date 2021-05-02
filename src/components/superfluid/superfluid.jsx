@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
+import Web3 from "web3";
+
 const SuperfluidSDK = require("@superfluid-finance/js-sdk");
-const Web3 = require("web3");
 
 export default function Superfluid(wallet) {
 
@@ -11,7 +12,7 @@ export default function Superfluid(wallet) {
 
   const carol = sf.user({
       address: wallet,
-      token: '0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00'
+      token: '0x59988e47A3503AaFaA0368b9deF095c818Fdca01'
   });
 
   const details = carol.details();

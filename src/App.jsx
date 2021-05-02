@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/home/home';
 import Gallery from './pages/gallery/gallery';
 import Info from './pages/info/info';
+import Sell from './pages/sell/sell';
 
 export default class App extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ export default class App extends Component {
         return (
             <BrowserRouter>
                 <Switch>
+                    <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} onLogin={this.handleLogin} />} />
                     <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} onLogin={this.handleLogin} />} />
                     <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} onLogin={this.handleLogin} />} />
                     <Route exact path="/" render={(_props) => <Home address={this.state.address} onLogin={this.handleLogin} />} />

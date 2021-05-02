@@ -4,7 +4,7 @@ const Web3 = require('web3');
 export default class Skale {
     constructor(props) {
         super(props);
-        const web3Provider = new Web3.providers.HttpProvider('----SKALE ENDPOINT----');
+        const web3Provider = new Web3.providers.HttpProvider('https://dev-testnet-v1-0.skalelabs.com'); // Chain ID 344435
         const web3 = new Web3(web3Provider);
         this.state = {
             filestorage: new Filestorage(web3, true),
