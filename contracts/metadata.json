@@ -1,0 +1,13 @@
+{
+    "first_name": "string",
+    "last_name": "string",
+    "address": "string",
+    "country": "string",
+    "region": "string",
+    "zip": "integer",
+    "title": "string",
+    "description": "string",
+    "surface": "integer",
+    "price": "float",
+    "deposit": "float"
+}
