@@ -1,25 +1,70 @@
 import React, { Component } from 'react';
 import Header from '../../components/header/header';
-import TorusLogin from '../../components/torus/torus';
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import './sell.css';
 
 export default class Sell extends Component {
     constructor (props) {
         super(props);
-        this.state = { country: '', region: '' };
+        this.state = { 
+            first_name: '',
+            last_name: '',
+            address: '',
+            latitude: '',
+            longitude: '',
+            country: '',
+            region: '',
+            zip: '',
+            title: '',
+            description: '',
+            surface: '',
+            price: '',
+            deposit: ''
+        };
     }
-    
+
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+
+        fetch(`https://us1.locationiq.com/v1/search.php?key=pk.f9586cd00dbee8301b57de330d3112a7&format=json&q=${this.state.address}`)
+        .then(response => response.json())
+        .then((response) => {
+            console.log(response);
+            this.setState({
+                latitude: response[0]['lat'],
+                longitude: response[0]['lon']
+            });
+        });
+    }
+
+    handleChange = (e) => {
+        const value = e.target.value;
+        this.setState({
+          [e.target.name]: value
+        });
+    }
+
     selectCountry (val) {
         this.setState({ country: val });
     }
-
+    
     selectRegion (val) {
         this.setState({ region: val });
     }
 
     render() {
-        const { country, region } = this.state;
+        const { first_name,
+                last_name,
+                address,
+                country,
+                region,
+                zip,
+                title,
+                description,
+                surface,
+                price,
+                deposit
+            } = this.state;
 
         return (
         <>
@@ -34,11 +79,11 @@ export default class Sell extends Component {
                 <div className="row">
                     <div className="col">
                         <h4 className="mb-3">Main Data</h4>
-                        <form className="needs-validation">
+                        <form className="needs-validation" onSubmit={this.handleFormSubmit}>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="first_name">First name</label>
-                                    <input autoFocus type="text" className="form-control" id="first_name" placeholder="John" min="2" max="50" required />
+                                    <input autoFocus type="text" className="form-control" name="first_name" id="first_name" placeholder="John" min="2" max="50" value={first_name} onChange={this.handleChange} required />
                                     <div className="invalid-feedback">
                                         A valid first name is required.
                                     </div>
@@ -46,7 +91,7 @@ export default class Sell extends Component {
 
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="last_name">Last name</label>
-                                    <input type="text" className="form-control" id="last_name" placeholder="Doe" min="2" max="50" required />
+                                    <input type="text" className="form-control" name="last_name" id="last_name" placeholder="Doe" min="2" max="50" value={last_name} onChange={this.handleChange} required />
                                     <div className="invalid-feedback">
                                         A valid last name is required.
                                     </div>
@@ -56,7 +101,7 @@ export default class Sell extends Component {
                             <div className="mb-3">
                                 <label htmlFor="address">Address</label>
                                 <div className="input-group">
-                                <input type="text" className="form-control" id="address" placeholder="1234 Main St" min="3" max="100" required />
+                                    <input type="text" className="form-control" name="address" id="address" placeholder="John" min="2" max="255" value={address} onChange={this.handleChange} required />
                                     <div className="invalid-feedback">
                                         A valid address is required.
                                     </div>
@@ -66,23 +111,23 @@ export default class Sell extends Component {
                             <div className="row">
                                 <div className="col-md-5 mb-3">
                                     <label htmlFor="country">Country</label>
-                                    <CountryDropdown value={country} onChange={(val) => this.selectCountry(val)} 
-                                    className="custom-select d-block w-100" id="country" required />
+                                    <CountryDropdown value={country} onChange={(val) => this.selectCountry(val)}
+                                    className="custom-select d-block w-100" name="country" id="country" required />
                                     <div className="invalid-feedback">
                                         Please select a valid country.
                                     </div>
                                 </div>
                                 <div className="col-md-4 mb-3">
                                     <label htmlFor="region">Region</label>
-                                    <RegionDropdown country={country} value={region} 
-                                    onChange={(val) => this.selectRegion(val)} className="custom-select d-block w-100" id="region" required />
+                                    <RegionDropdown country={country} value={region} onChange={(val) => this.selectRegion(val)}
+                                    className="custom-select d-block w-100" name="region" id="region" required />
                                     <div className="invalid-feedback">
                                         Please provide a valid region.
                                     </div>
                                 </div>
                                 <div className="col-md-3 mb-3">
                                     <label htmlFor="zip">Zip</label>
-                                    <input type="text" className="form-control" id="zip" placeholder="012..." required />
+                                    <input type="text" className="form-control" name="zip" id="zip" placeholder="012..." value={zip} onChange={this.handleChange} required />
                                     <div className="invalid-feedback">
                                         Zip code required.
                                     </div>
@@ -95,7 +140,7 @@ export default class Sell extends Component {
 
                             <div className="mb-3">
                                 <label htmlFor="title">Title</label>
-                                <input type="text" className="form-control" id="title" placeholder="A catchy title" min="3" max="100" required />
+                                <input type="text" className="form-control" name="title" id="title" placeholder="A catchy title" min="3" max="100" value={title} onChange={this.handleChange} required />
                                 <div className="invalid-feedback">
                                     Title is required
                                 </div>
@@ -103,9 +148,9 @@ export default class Sell extends Component {
 
                             <div className="mb-3">
                                 <label htmlFor="description">Description</label>
-                                <textarea className="form-control" id="description" placeholder="Tell us more about the property to let" min="10" max="500" spellCheck="true" required></textarea>
+                                <textarea className="form-control" name="description" id="description" placeholder="Tell us more about the property to let" min="10" max="500" spellCheck="true" value={description} onChange={this.handleChange} required></textarea>
                                 <div className="invalid-feedback">
-                                Description is required
+                                    Description is required
                                 </div>
                             </div>
 
@@ -113,7 +158,7 @@ export default class Sell extends Component {
                                 <div className="col-md-5 mb-3">
                                     <label htmlFor="surface">Surface</label>
                                     <div className="input-group mb-3">
-                                        <input type="number" className="form-control" id="surface" placeholder="10" required />
+                                        <input type="number" className="form-control" name="surface" id="surface" placeholder="10" value={surface} onChange={this.handleChange} required />
                                         <div className="input-group-append">
                                             <span className="input-group-text" id="basic-addon1">m2</span>
                                         </div>
@@ -128,7 +173,7 @@ export default class Sell extends Component {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="basic-addon2">$</span>
                                         </div>
-                                        <input type="number" className="form-control" id="price" placeholder="850" min="1" max="10000" required />
+                                        <input type="number" className="form-control" name="price" id="price" placeholder="850" min="1" max="10000" value={price} onChange={this.handleChange} required />
                                         <div className="invalid-feedback">
                                             Please provide a valid number.
                                         </div>
@@ -140,11 +185,23 @@ export default class Sell extends Component {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="basic-addon3">$</span>
                                         </div>
-                                        <input type="number" className="form-control" id="deposit" placeholder="200" min="0" max="10000" required />
+                                        <input type="number" className="form-control" name="deposit" id="deposit" placeholder="200" min="0" max="10000" value={deposit} onChange={this.handleChange} required />
                                         <div className="invalid-feedback">
                                             Please choose a valid option.
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <hr className="mb-4" />
+
+                            <h4 className="mb-3">Media</h4>
+
+                            <div className="mb-3">
+                                <label htmlFor="image">Image</label>
+                                <input type="file" className="form-control-file" name="image" id="image" accept="image/*" onChange={this.handleChange} required />
+                                <div className="invalid-feedback">
+                                    Image is required
                                 </div>
                             </div>
 
@@ -163,12 +220,7 @@ export default class Sell extends Component {
                     </ul>
                 </footer>
             </div>
-
-            <TorusLogin login={this.props.onLogin} address={this.props.address} />
-
       </>
         );
     }
 }
-
-// titolo / descrizione / prezzo al mese in usd / extra (lista stringhe) / wallet / indirizzo della casa / foto

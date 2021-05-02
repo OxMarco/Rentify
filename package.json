@@ -5,6 +5,7 @@
   "dependencies": {
     "@ethersproject/contracts": "^5.1.1",
     "@openzeppelin/network": "^0.4.3",
+    "@react-google-maps/api": "^2.1.1",
     "@skalenetwork/filestorage.js": "^0.2.10",
     "@superfluid-finance/js-sdk": "^0.4.3",
     "@testing-library/jest-dom": "^5.11.4",
@@ -43,5 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
