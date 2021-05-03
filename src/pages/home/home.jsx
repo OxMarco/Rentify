@@ -38,9 +38,7 @@ export default class Home extends Component {
                     </div>
                 </div>
 
-                <footer className="container py-5">
-                    <Footer />
-                </footer>
+                <Footer classProp="container py-5" />
             </>
         );
     }

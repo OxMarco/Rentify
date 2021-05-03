@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import './gallery.css';
 import Map from '../../components/map/map';
+import './gallery.css';
 
 export default class Gallery extends Component {
     constructor(props) {
@@ -13,11 +13,14 @@ export default class Gallery extends Component {
             redirect_url: '',
             my_lat: 0,
             my_lng: 0,
-            tokens: ''
+            tokens: '',
+            address: ''
         };
     }
 
-    componentDidMount () {
+    async componentDidMount () {
+        await this.props.login();
+
         var lat_t = 0, lon_t = 0;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -26,11 +29,7 @@ export default class Gallery extends Component {
             });
 
         }
-        this.setState({ my_lat: lat_t, my_lng: lon_t });
-
-        var tokens = JSON.parse(localStorage.getItem("tokens"));
-        this.setState({ tokens: tokens });
-        console.log(tokens);
+        this.setState({ my_lat: lat_t, my_lng: lon_t, address: this.props.address });
     }
 
     viewDetails(id) {
@@ -46,7 +45,7 @@ export default class Gallery extends Component {
             return <Redirect to={this.state.redirect_url + '/' + this.state.redirect_param} />
         }
 
-        const { tokens, my_lat, my_lng } = this.state;
+        const { tokens, my_lat, my_lng, address } = this.state;
 
         return (
             <>
@@ -67,7 +66,7 @@ export default class Gallery extends Component {
                                     <div className="card-header">
                                         <h4 className="my-0 font-weight-normal">Free</h4>
                                     </div>
-                                    <img src="https://picsum.photos/seed/picsum/200/300" className="card-img-top" alt="the property" />
+                                    <img src={"https://ipfs.io/ipfs/"+token.image} className="card-img-top" alt="the property" />
                                     <div className="card-body">
                                         <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ mo</small></h1>
                                         <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -78,8 +77,9 @@ export default class Gallery extends Component {
                                             <li>Help center access</li>
                                         </ul>
                                         <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
+                                        {token.owner === address &&
                                         <button type="button" className="btn btn-lg btn-block btn-outline-danger" onClick={() => this.remove(token.id)}>Remove</button>
-
+                                        }
                                     </div>
                                 </div>
                                 )}
@@ -91,10 +91,7 @@ export default class Gallery extends Component {
                         </div>
                     </div>
 
-                    
-                    <footer className="pt-4 my-md-5 pt-md-5 border-top">
-                        <Footer />
-                    </footer>
+                    <Footer classProp="pt-4 my-md-5 pt-md-5 border-top" />
                 </div>
             </>
         );

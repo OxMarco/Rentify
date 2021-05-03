@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import Header from '../../components/header/header';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import IpfsHttpClient from 'ipfs-http-client';
 import './sell.css';
+
+const ipfs = IpfsHttpClient({
+  host: "ipfs.infura.io",
+  port: "5001",
+  protocol: "https",
+});
 
 export default class Sell extends Component {
     constructor (props) {
@@ -17,43 +25,51 @@ export default class Sell extends Component {
             description: '',
             surface: '',
             price: '',
-            deposit: ''
+            deposit: '',
+            image: null,
+            progress: 0
         };
     }
 
-    handleFormSubmit = (e) => {
+    handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        fetch(`https://us1.locationiq.com/v1/search.php?key=pk.f9586cd00dbee8301b57de330d3112a7&format=json&q=${this.state.address}`)
-        .then(response => response.json())
-        .then((response) => {
-            console.log(response[0]['lat']);
-            this.setState({
-                latitude: response[0]['lat'],
-                longitude: response[0]['lon']
-            });
-
-            const data = { 
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
-                country: this.state.country,
-                region: this.state.region,
-                zip: this.state.zip,
-                title: this.state.title,
-                description: this.state.description,
-                surface: this.state.surface,
-                price: this.state.price,
-                deposit: this.state.deposit,
-                image: ""
-            };
-
-            var tokens = JSON.parse(localStorage.getItem("tokens"));
-            if(tokens == null) tokens = [];
-            tokens.push(data);
-            localStorage.setItem("tokens", JSON.stringify(tokens));
-
-            e.target.reset();
+        const res = await fetch(`https://us1.locationiq.com/v1/search.php?key=pk.f9586cd00dbee8301b57de330d3112a7&format=json&q=${this.state.address}`)
+        const response = await res.json();
+        console.log(response[0]['lat']);
+        this.setState({
+            latitude: response[0]['lat'],
+            longitude: response[0]['lon']
         });
+
+        const imageCID = await ipfs.add(e.target.files[0], {
+            progress: (prog) => this.setState({progress: prog}),
+        });
+        console.log(imageCID);
+
+        const data = JSON.stringify({ 
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            country: this.state.country,
+            region: this.state.region,
+            zip: this.state.zip,
+            title: this.state.title,
+            description: this.state.description,
+            surface: this.state.surface,
+            price: this.state.price,
+            deposit: this.state.deposit,
+            image: imageCID
+        });
+
+        const metadataCID = await ipfs.add(data);
+        console.log("IPFS CID:", metadataCID);
+
+        var tokens = JSON.parse(localStorage.getItem("tokens"));
+        if(tokens == null) tokens = [];
+        tokens.push(data);
+        localStorage.setItem("tokens", JSON.stringify(tokens));
+
+        e.target.reset();
     }
 
     handleChange = (e) => {
@@ -63,11 +79,15 @@ export default class Sell extends Component {
         });
     }
 
-    selectCountry (val) {
+    handleFileChange = (e) => {
+        this.setState({ image: e.target.files[0] });
+    }
+
+    selectCountry = (val) => {
         this.setState({ country: val });
     }
     
-    selectRegion (val) {
+    selectRegion = (val) => {
         this.setState({ region: val });
     }
 
@@ -80,7 +100,8 @@ export default class Sell extends Component {
                 description,
                 surface,
                 price,
-                deposit
+                deposit,
+                progress
             } = this.state;
 
         return (
@@ -199,11 +220,13 @@ export default class Sell extends Component {
 
                             <div className="mb-3">
                                 <label htmlFor="image">Image</label>
-                                <input type="file" className="form-control-file" name="image" id="image" accept="image/*" onChange={this.handleChange} required />
+                                <input type="file" className="form-control-file" name="image" id="image" accept="image/*" onChange={this.handleFileChange} required />
                                 <div className="invalid-feedback">
                                     Image is required
                                 </div>
                             </div>
+                            <ProgressBar animated now={progress} />
+
 
                             <hr className="mb-4" />
                             <button className="btn btn-secondary btn-lg btn-block" type="submit">Add to the List</button>

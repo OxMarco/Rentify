@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import IpfsRouter from 'ipfs-react-router'
 import Torus from "@toruslabs/torus-embed";
 import Web3 from "web3";
 
@@ -28,6 +29,18 @@ export default class App extends Component {
         await torus.setProvider({
             host: 'goerli',
         });
+        /*
+        await torus.init({
+            buildEnv: "production", // default: production
+            enableLogging: true, // default: false
+            network: {
+              host: "mumbai", // default: mainnet
+              chainId: 80001, // default: 1
+              networkName: "Mumbai Test Network" // default: Main Ethereum Network
+            },
+            showTorusButton: false // default: true
+        });
+        */
 
         await torus.login();
 
@@ -45,14 +58,14 @@ export default class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
+            <IpfsRouter>
                 <Switch>
                     <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} login={this.login} />} />
                     <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} login={this.login} />} />
                     <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} web3={this.state.web3} login={this.login} />} />
                     <Route exact path="/" render={(_props) => <Home address={this.state.address} login={this.login} />} />
                 </Switch>
-            </BrowserRouter>
+            </IpfsRouter>
         );
     }
 }

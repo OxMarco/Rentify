@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './info.css';
-import Torus from "@toruslabs/torus-embed";
-import Web3 from "web3";
 
 const SuperfluidSDK = require("@superfluid-finance/js-sdk");
 
@@ -22,15 +20,6 @@ export default class Info extends Component {
             web3: this.props.web3,
         });
         await sf.initialize()
-
-        const walletAddress = await window.ethereum.request({
-            method: 'eth_requestAccounts',
-            params: [
-              {
-                eth_accounts: {}
-              }
-            ]
-        });
 
         const sfUser = sf.user({
             address: this.props.address,

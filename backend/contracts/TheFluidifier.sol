@@ -1,29 +1,39 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+pragma abicoder v2;
 
-pragma solidity ^0.7.0;
+import "./Tokenissimo.sol";
 
 contract TheFluidifier {
 
-    struct Listing {
-        string metadata;
-        uint256 collateral;
-    }
+    Tokenissimo private _tokenFactory;
 
-    mapping(address => Listing[]) private items;
-
-    function getAll() public view returns(mapping(address => Listing[])) {
-        return items;
+    constructor() {
+        _tokenFactory = new Tokenissimo();
     }
-
-    function getOwn() public view returns(Listing[] memory) {
-        return items[msg.sender];
+    
+    function create(string memory metadata, uint256 collateral) public returns (uint256) {
+        //require(bytes(metadata).length == 46, "Not a valid CID"); // a IPFS CID is 46 chars long
+        
+        return _tokenFactory.mintIt(address(this), metadata, collateral);  // or address => msg.sender
     }
-
-    function add(string memory metadata, uint256 collateral) public {
-        items[msg.sender].push(Listing(metadata, collateral));
+    
+    function remove(uint256 id) public {
+        _tokenFactory.burnIt(id);
     }
-
-    function remove(string metadata) public {
-        ???
+    
+    function get(uint256 id) public view returns (string memory, uint256, address) {
+        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
     }
+    
+    function rent(uint256 id) public payable {
+        require(msg.value == _tokenFactory.tokenCollateral(id), "Insufficient funds sent");
+    
+        _tokenFactory.rentIt(id, msg.sender);
+    }
+    
+    function unrent(uint256 id) public {
+        _tokenFactory.unrentIt(id, msg.sender);
+    }
+    
 }
