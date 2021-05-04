@@ -9,19 +9,23 @@ import Gallery from './pages/gallery/gallery';
 import Info from './pages/info/info';
 import Sell from './pages/sell/sell';
 
+import Api from './components/api/api';
+
 export default class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            email: '',
             address: '',
             web3: null,
+            api: null
         };
 
-        this.login = this.login.bind(this);
+        //this.login = this.login.bind(this);
     }
 
-    async login() {
+    async componentDidMount() {
         const torus = new Torus({});
         await torus.init({
             enableLogging: false,
@@ -46,13 +50,20 @@ export default class App extends Component {
 
         const web3 = new Web3(torus.provider);
         const address = (await web3.eth.getAccounts())[0];
-
         const userInfo = await torus.getUserInfo();
-        console.log(userInfo);
+
+        const api = new Api(web3, address);
+
+        console.log('[APP.JSX] web3:');
+        console.log(web3);
+        console.log('[APP.JSX] api:');
+        console.log(api);
 
         this.setState({
+            userInfo: userInfo,
             address: address,
             web3: web3,
+            api: api
         });
     }
 
@@ -60,10 +71,10 @@ export default class App extends Component {
         return (
             <IpfsRouter>
                 <Switch>
-                    <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} login={this.login} />} />
-                    <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} login={this.login} />} />
-                    <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} web3={this.state.web3} login={this.login} />} />
-                    <Route exact path="/" render={(_props) => <Home address={this.state.address} login={this.login} />} />
+                    <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} web3={this.web3} api={this.api} userInfo={this.userInfo} />} />
+                    <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} web3={this.web3} api={this.api} userInfo={this.userInfo} />} />
+                    <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} web3={this.web3} api={this.api} userInfo={this.userInfo} />} />
+                    <Route exact path="/" render={(_props) => <Home />} />
                 </Switch>
             </IpfsRouter>
         );

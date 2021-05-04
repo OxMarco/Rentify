@@ -8,6 +8,8 @@ import './gallery.css';
 export default class Gallery extends Component {
     constructor(props) {
         super(props);
+        console.log('[GALLERY.JSX] props log in constructor:')
+        console.log(this.props);
 
         this.state = {
             redirect_url: '',
@@ -19,8 +21,16 @@ export default class Gallery extends Component {
     }
 
     async componentDidMount () {
-        await this.props.login();
+        //await this.props.login();
+        this.setState({ address: this.props.address });
+        
+        console.log('[GALLERY.JSX] web3:');
+        console.log(this.props.web3);
+        console.log('[GALLERY.JSX] api:');
+        console.log(this.props.api);
+    }
 
+    geolocate() {
         var lat_t = 0, lon_t = 0;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -29,7 +39,7 @@ export default class Gallery extends Component {
             });
 
         }
-        this.setState({ my_lat: lat_t, my_lng: lon_t, address: this.props.address });
+        this.setState({ my_lat: lat_t, my_lng: lon_t });
     }
 
     viewDetails(id) {

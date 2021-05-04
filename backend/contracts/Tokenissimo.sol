@@ -32,29 +32,40 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
         return tokenId;
     }
 
-    function burnIt(uint256 tokenId) external onlyOwner {
+    function burnIt(uint256 tokenId, address addr) external {
+        require(owner() == addr, "Only the owner can burn it");
+        require(rentee[tokenId] == address(0), "The property is currently rented");
+
         _burn(tokenId);
     }
     
-    function rentIt(uint256 tokenId, address addr) external payable onlyOwner {
+    function rentIt(uint256 tokenId, address addr) external payable {
         require(_exists(tokenId), "Query for nonexistent token");
         require(rentee[tokenId] == address(0), "Already rented");
+        require(addr != owner(), "The landlord cannot rent their own property");
 
+        /*
         CEth cToken = CEth(_cEtherContract);
         cToken.mint{ value:msg.value, gas:250000 };
+        */
         
         rentee[tokenId] = addr;
     }
     
-    function unrentIt(uint256 tokenId, address addr) external onlyOwner {
+    function unrentIt(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
         require(rentee[tokenId] != address(0), "Not rented");
-        require(rentee[tokenId] == addr, "Only the rentee can void it");
+        require(rentee[tokenId] == addr || owner() == addr, "Only the landlord or the rentee can void it");
         
+        /*
         CEth cToken = CEth(_cEtherContract);
         uint256 redeemResult = cToken.redeemUnderlying(collaterals[tokenId]);
         require(redeemResult != 0, "Collateral redeem error");
+        */
         
+        (bool sent, bytes memory data) = payable(rentee[tokenId]).call{value: collaterals[tokenId]}("");
+        require(sent, "Failed to redeem collateral");
+
         delete rentee[tokenId];
     }
     
@@ -69,4 +80,10 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
 
         return rentee[tokenId];
     }
+    
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {}
+
+    // Fallback function is called when msg.data is not empty
+    fallback() external payable {}
 }

@@ -11,19 +11,19 @@ contract TheFluidifier {
     constructor() {
         _tokenFactory = new Tokenissimo();
     }
+
+    function get(uint256 id) public view returns (string memory, uint256, address) {
+        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
+    }
     
     function create(string memory metadata, uint256 collateral) public returns (uint256) {
         //require(bytes(metadata).length == 46, "Not a valid CID"); // a IPFS CID is 46 chars long
         
-        return _tokenFactory.mintIt(address(this), metadata, collateral);  // or address => msg.sender
+        return _tokenFactory.mintIt(msg.sender, metadata, collateral);
     }
     
     function remove(uint256 id) public {
-        _tokenFactory.burnIt(id);
-    }
-    
-    function get(uint256 id) public view returns (string memory, uint256, address) {
-        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
+        _tokenFactory.burnIt(id, msg.sender);
     }
     
     function rent(uint256 id) public payable {
@@ -35,5 +35,5 @@ contract TheFluidifier {
     function unrent(uint256 id) public {
         _tokenFactory.unrentIt(id, msg.sender);
     }
-    
+
 }

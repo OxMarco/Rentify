@@ -14,6 +14,10 @@ const ipfs = IpfsHttpClient({
 export default class Sell extends Component {
     constructor (props) {
         super(props);
+
+        console.log('[SELL.JSX] props log in constructor:')
+        console.log(this.props);
+
         this.state = { 
             address: '',
             latitude: '',
@@ -27,12 +31,15 @@ export default class Sell extends Component {
             price: '',
             deposit: '',
             image: null,
-            progress: 0
+            progress: 0,
+            button_disabled: false,
         };
     }
 
     handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        this.setState({ button_disabled: true });
 
         const res = await fetch(`https://us1.locationiq.com/v1/search.php?key=pk.f9586cd00dbee8301b57de330d3112a7&format=json&q=${this.state.address}`)
         const response = await res.json();
@@ -42,10 +49,14 @@ export default class Sell extends Component {
             longitude: response[0]['lon']
         });
 
+        this.setState({progress: 33});
+
         const imageCID = await ipfs.add(e.target.files[0], {
-            progress: (prog) => this.setState({progress: prog}),
+            progress: (prog) => console.log(prog),
         });
         console.log(imageCID);
+
+        this.setState({progress: 66});
 
         const data = JSON.stringify({ 
             latitude: this.state.latitude,
@@ -69,6 +80,8 @@ export default class Sell extends Component {
         tokens.push(data);
         localStorage.setItem("tokens", JSON.stringify(tokens));
 
+        this.setState({progress: 100, button_disabled: false });
+    
         e.target.reset();
     }
 
@@ -101,7 +114,8 @@ export default class Sell extends Component {
                 surface,
                 price,
                 deposit,
-                progress
+                progress,
+                button_disabled
             } = this.state;
 
         return (
@@ -229,7 +243,7 @@ export default class Sell extends Component {
 
 
                             <hr className="mb-4" />
-                            <button className="btn btn-secondary btn-lg btn-block" type="submit">Add to the List</button>
+                            <button className="btn btn-secondary btn-lg btn-block" type="submit" disabled={button_disabled}>Add to the List</button>
                         </form>
                     </div>
                 </div>
