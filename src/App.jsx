@@ -71,9 +71,9 @@ export default class App extends Component {
         return (
             <IpfsRouter>
                 <Switch>
-                    <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} web3={this.web3} api={this.api} userInfo={this.userInfo} />} />
-                    <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} web3={this.web3} api={this.api} userInfo={this.userInfo} />} />
-                    <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} web3={this.web3} api={this.api} userInfo={this.userInfo} />} />
+                    <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
+                    <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
+                    <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
                     <Route exact path="/" render={(_props) => <Home />} />
                 </Switch>
             </IpfsRouter>
