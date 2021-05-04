@@ -21,8 +21,6 @@ export default class App extends Component {
             web3: null,
             api: null
         };
-
-        //this.login = this.login.bind(this);
     }
 
     async componentDidMount() {
@@ -33,18 +31,6 @@ export default class App extends Component {
         await torus.setProvider({
             host: 'goerli',
         });
-        /*
-        await torus.init({
-            buildEnv: "production", // default: production
-            enableLogging: true, // default: false
-            network: {
-              host: "mumbai", // default: mainnet
-              chainId: 80001, // default: 1
-              networkName: "Mumbai Test Network" // default: Main Ethereum Network
-            },
-            showTorusButton: false // default: true
-        });
-        */
 
         await torus.login();
 
@@ -53,11 +39,6 @@ export default class App extends Component {
         const userInfo = await torus.getUserInfo();
 
         const api = new Api(web3, address);
-
-        console.log('[APP.JSX] web3:');
-        console.log(web3);
-        console.log('[APP.JSX] api:');
-        console.log(api);
 
         this.setState({
             userInfo: userInfo,
