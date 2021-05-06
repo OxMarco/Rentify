@@ -21,7 +21,6 @@ export default class Gallery extends Component {
     }
 
     async componentDidMount () {
-        //await this.props.login();
         this.setState({ address: this.props.address });
         
         console.log('[GALLERY.JSX] web3:');
