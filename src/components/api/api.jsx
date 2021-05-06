@@ -7,6 +7,14 @@ export default class Api {
         this.contract.setProvider(this.web3.currentProvider)
     }
 
+    async create(metadataCID, collateral) {
+        return await this.contract.create(metadataCID, collateral);
+    }
+
+    async remove(id) {
+        await this.contract.remove(id);
+    }
+
     async get(id) {
         const [metadataCID, collateral, rentee] = await this.contract.get(id);
 
@@ -31,9 +39,12 @@ export default class Api {
         return metadata;
     }
 
-    async create(metadata, collateral) {
-        const tokenId = await this.contract.create(metadata, collateral);
-
-        return tokenId;
+    async startRent(id) {
+        await this.contract.startRent(id);
     }
+
+    async stopRent(id) {
+        await this.contract.stopRent(id);
+    }
+
 }
