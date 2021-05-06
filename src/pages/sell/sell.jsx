@@ -210,7 +210,7 @@ export default class Sell extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-4 mb-3">
-                                    <label htmlFor="price">Price/month (USD)</label>
+                                    <label htmlFor="price">Price/day (USD)</label>
                                     <div className="input-group mb-3">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="basic-addon2">$</span>
@@ -227,7 +227,7 @@ export default class Sell extends Component {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="basic-addon3">$</span>
                                         </div>
-                                        <input type="number" className="form-control" name="deposit" id="deposit" placeholder="200" min="0" max="10000" value={deposit} onChange={this.handleChange} required />
+                                        <input type="number" className="form-control" name="deposit" id="deposit" placeholder="100" min="50" max="10000" value={deposit} onChange={this.handleChange} required />
                                         <div className="invalid-feedback">
                                             Please choose a valid option.
                                         </div>

@@ -4,7 +4,7 @@ pragma abicoder v2;
 
 import "./Tokenissimo.sol";
 
-contract TheFluidifier {
+contract TheRentifier {
 
     Tokenissimo private _tokenFactory;
 

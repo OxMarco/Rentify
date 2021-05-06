@@ -3,7 +3,7 @@ import ABI from '../../abi.json';
 export default class Api {
     constructor(web3, contractAddress) {
         this.web3 = web3;
-        this.contract = new this.web3.eth.Contract(ABI, contractAddress)
+        this.contract = new this.web3.eth.Contract(ABI, '0x9108212DF22184C26Eb301B90ce4B30D1A4B942D')
         this.contract.setProvider(this.web3.currentProvider)
     }
 
