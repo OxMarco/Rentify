@@ -29,7 +29,7 @@ export default class App extends Component {
             enableLogging: false,
         });
         await torus.setProvider({
-            host: 'goerli',
+            host: 'kovan',
         });
 
         await torus.login();

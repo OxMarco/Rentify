@@ -7,13 +7,9 @@ import "./Tokenissimo.sol";
 contract TheRentifier {
 
     Tokenissimo private _tokenFactory;
-
+    
     constructor() {
         _tokenFactory = new Tokenissimo();
-    }
-
-    function get(uint256 id) public view returns (string memory, uint256, address) {
-        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
     }
     
     function create(string memory metadata, uint256 collateral) public returns (uint256) {
@@ -26,8 +22,12 @@ contract TheRentifier {
         _tokenFactory.burnIt(id, msg.sender);
     }
     
+    function get(uint256 id) public view returns (string memory, uint256, address) {
+        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
+    }
+    
     function rent(uint256 id) public payable {
-        require(msg.value == _tokenFactory.tokenCollateral(id), "Insufficient funds sent");
+        require(msg.value >= _tokenFactory.tokenCollateral(id), "Insufficient funds sent");
     
         _tokenFactory.rentIt(id, msg.sender);
     }
@@ -35,5 +35,5 @@ contract TheRentifier {
     function unrent(uint256 id) public {
         _tokenFactory.unrentIt(id, msg.sender);
     }
-
+    
 }
