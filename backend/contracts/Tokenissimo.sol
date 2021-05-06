@@ -93,7 +93,7 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
      * @dev Returns the address of the tenant (or null) of the token.
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      */
-    function tokenRentee(uint256 tokenId) external view returns(address) {
+    function tokenTenant(uint256 tokenId) external view returns(address) {
         require(_exists(tokenId), "Query for nonexistent token");
 
         return tenant[tokenId];

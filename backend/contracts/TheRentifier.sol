@@ -23,7 +23,7 @@ contract TheRentifier {
     }
     
     function get(uint256 id) public view returns (string memory, uint256, address) {
-        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
+        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenTenant(id) );
     }
     
     function startRent(uint256 id) public payable {
