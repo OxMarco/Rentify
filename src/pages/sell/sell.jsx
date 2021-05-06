@@ -3,13 +3,8 @@ import Header from '../../components/header/header';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import IpfsHttpClient from 'ipfs-http-client';
+import emailjs from 'emailjs-com';
 import './sell.css';
-
-const ipfs = IpfsHttpClient({
-  host: "ipfs.infura.io",
-  port: "5001",
-  protocol: "https",
-});
 
 export default class Sell extends Component {
     constructor (props) {
@@ -33,6 +28,11 @@ export default class Sell extends Component {
             image: null,
             progress: 0,
             button_disabled: false,
+            ipfs: IpfsHttpClient({
+                host: "ipfs.infura.io",
+                port: "5001",
+                protocol: "https",
+            })
         };
     }
 
@@ -49,14 +49,14 @@ export default class Sell extends Component {
             longitude: response[0]['lon']
         });
 
-        this.setState({progress: 33});
+        this.setState({progress: 25});
 
-        const imageCID = await ipfs.add(e.target.files[0], {
+        const imageCID = await this.state.ipfs.add(e.target.files[0], {
             progress: (prog) => console.log(prog),
         });
         console.log(imageCID);
 
-        this.setState({progress: 66});
+        this.setState({progress: 50});
 
         const data = JSON.stringify({ 
             latitude: this.state.latitude,
@@ -72,17 +72,24 @@ export default class Sell extends Component {
             image: imageCID
         });
 
-        const metadataCID = await ipfs.add(data);
+        const metadataCID = await this.state.ipfs.add(data);
         console.log("IPFS CID:", metadataCID);
 
-        var tokens = JSON.parse(localStorage.getItem("tokens"));
-        if(tokens == null) tokens = [];
-        tokens.push(data);
-        localStorage.setItem("tokens", JSON.stringify(tokens));
+        this.setState({progress: 75});
 
+        await this.sendMail("..."); // TBD
         this.setState({progress: 100, button_disabled: false });
     
         e.target.reset();
+    }
+
+    sendMail = async (data) => {
+        var templateParams = {
+            to: this.props.userInfo['email'],
+            id: data
+        };
+        var res = await emailjs.send('service_bi3gqt9', 'template_i3jg7ee', templateParams, 'user_df7doAY0vH3ifJMBgVXNG');
+        console.log(res);
     }
 
     handleChange = (e) => {

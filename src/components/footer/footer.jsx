@@ -14,7 +14,7 @@ function Footer({classProp}) {
                         <ul className="list-unstyled text-small">
                             <li><a className="text-muted" href="https://www.superfluid.finance/">Superfluid</a></li>
                             <li><a className="text-muted" href="https://tor.us/">Torus</a></li>
-                            <li><a className="text-muted" href="https://skale.network/">Skale</a></li>
+                            <li><a className="text-muted" href="https://aave.com/">Aave</a></li>
                             <li><a className="text-muted" href="https://matic.network/">Matic</a></li>
                         </ul>
                     </div>
@@ -32,8 +32,8 @@ function Footer({classProp}) {
                         <ul className="list-unstyled text-small">
                             <li><a className="text-muted" href="https://github.com/matteougolotti">@matxzy</a></li>
                             <li><a className="text-muted" href="https://github.com/grcasanova">@Rene</a></li>
-                            <li><a className="text-muted" href="https://github.com/">@schallereth</a></li>
-                            <li><a className="text-muted" href="https://github.com/">@holding_in_luxembourg</a></li>
+                            <li><a className="text-muted" href="https://github.com/">...</a></li>
+                            <li><a className="text-muted" href="https://github.com/">...</a></li>
                         </ul>
                     </div>
                 </div>

@@ -16,7 +16,7 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            email: '',
+            userInfo: '',
             address: '',
             web3: null,
             api: null
