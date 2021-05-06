@@ -16,7 +16,7 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
 
     Counters.Counter private _tokenIds;
     mapping (uint256 => uint256) collaterals;
-    mapping (uint256 => address) rentee;
+    mapping (uint256 => address) tenant;
 
     // Aave
     address constant private TOKEN_CONTRACT = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
@@ -42,14 +42,14 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
 
     function burnIt(uint256 tokenId, address addr) external {
         require(ownerOf(tokenId) == addr, "Only the owner can burn it");
-        require(rentee[tokenId] == address(0), "The property is currently rented");
+        require(tenant[tokenId] == address(0), "The property is currently rented");
 
         _burn(tokenId);
     }
     
     function startRent(uint256 tokenId, address addr) external payable {
         require(_exists(tokenId), "Query for nonexistent token");
-        require(rentee[tokenId] == address(0), "Already rented");
+        require(tenant[tokenId] == address(0), "Already rented");
         require(addr != ownerOf(tokenId), "The landlord cannot rent their own property");
         
 /*
@@ -67,20 +67,20 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
         _lendingPool.deposit(TOKEN_CONTRACT, collaterals[tokenId], 0);
 */
 
-        rentee[tokenId] = addr;
+        tenant[tokenId] = addr;
     }
     
     function stopRent(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
-        require(rentee[tokenId] != address(0), "Not rented");
-        require(rentee[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the rentee can void it");
+        require(tenant[tokenId] != address(0), "Not rented");
+        require(tenant[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the tenant can void it");
 
     /*
         AToken aToken = AToken(ATOKEN_CONTRACT);
         aToken.redeem(collaterals[tokenId]);
     */
 
-        delete rentee[tokenId];
+        delete tenant[tokenId];
     }
     
     function tokenCollateral(uint256 tokenId) external view returns(uint256) {
@@ -90,13 +90,13 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
     }
     
     /**
-     * @dev Returns the address of the rentee (or null) of the token.
+     * @dev Returns the address of the tenant (or null) of the token.
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      */
     function tokenRentee(uint256 tokenId) external view returns(address) {
         require(_exists(tokenId), "Query for nonexistent token");
 
-        return rentee[tokenId];
+        return tenant[tokenId];
     }
 
     function getAtokenBalance() external view returns (uint256) {
