@@ -47,7 +47,7 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
         _burn(tokenId);
     }
     
-    function rentIt(uint256 tokenId, address addr) external payable {
+    function startRent(uint256 tokenId, address addr) external payable {
         require(_exists(tokenId), "Query for nonexistent token");
         require(rentee[tokenId] == address(0), "Already rented");
         require(addr != ownerOf(tokenId), "The landlord cannot rent their own property");
@@ -70,7 +70,7 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
         rentee[tokenId] = addr;
     }
     
-    function unrentIt(uint256 tokenId, address addr) external {
+    function stopRent(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
         require(rentee[tokenId] != address(0), "Not rented");
         require(rentee[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the rentee can void it");

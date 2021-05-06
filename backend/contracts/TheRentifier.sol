@@ -26,14 +26,14 @@ contract TheRentifier {
         return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenRentee(id) );
     }
     
-    function rent(uint256 id) public payable {
+    function startRent(uint256 id) public payable {
         require(msg.value >= _tokenFactory.tokenCollateral(id), "Insufficient funds sent");
     
-        _tokenFactory.rentIt(id, msg.sender);
+        _tokenFactory.startRent(id, msg.sender);
     }
     
-    function unrent(uint256 id) public {
-        _tokenFactory.unrentIt(id, msg.sender);
+    function stopRent(uint256 id) public {
+        _tokenFactory.stopRent(id, msg.sender);
     }
     
 }
