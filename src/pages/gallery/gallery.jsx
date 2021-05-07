@@ -8,8 +8,6 @@ import './gallery.css';
 export default class Gallery extends Component {
     constructor(props) {
         super(props);
-        console.log('[GALLERY.JSX] props log in constructor:')
-        console.log(this.props);
 
         this.state = {
             redirect_url: '',
@@ -20,14 +18,18 @@ export default class Gallery extends Component {
         };
     }
 
-    async componentDidMount () {
-        //await this.props.login();
-        this.setState({ address: this.props.address });
+    componentDidMount() {
         
-        console.log('[GALLERY.JSX] web3:');
-        console.log(this.props.web3);
-        console.log('[GALLERY.JSX] api:');
-        console.log(this.props.api);
+    }
+
+    async load () {
+        if(! this.props.loaded ) return;
+
+        this.setState({ address: this.props.address });
+
+        const res = await this.props.api.get(1);
+        console.log("[GALLERY] Contract result:");
+        console.log(res);
     }
 
     geolocate() {

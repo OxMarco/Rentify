@@ -28,11 +28,6 @@ export default class Info extends Component {
 
         const details = await sfUser.details();
 
-        console.log('Superfluid log init');
-        console.log(details);
-        console.log(this.props.address);
-        console.log('Superfluid log stop');
-
         await sfUser.flow({
             recipient: '0x35d389B751943Cbf3fE3620a668566E97D5f0144',
             flowRate: '1000'

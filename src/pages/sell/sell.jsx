@@ -68,7 +68,6 @@ export default class Sell extends Component {
             description: this.state.description,
             surface: this.state.surface,
             price: this.state.price,
-            deposit: this.state.deposit,
             image: imageCID
         });
 
@@ -78,8 +77,16 @@ export default class Sell extends Component {
         this.setState({progress: 75});
 
         await this.sendMail("..."); // TBD
-        this.setState({progress: 100, button_disabled: false });
     
+        const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
+        const priceRes = await apiRes.json();
+        const price_eth = this.props.web3.utils.toWei(priceRes['ETH'] * this.state.deposit);
+
+        const flag = await this.props.api.create(metadataCID, price_eth);
+        if(!flag) alert('Error');
+
+        this.setState({progress: 100, button_disabled: false });
+
         e.target.reset();
     }
 

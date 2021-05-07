@@ -19,7 +19,8 @@ export default class App extends Component {
             userInfo: '',
             address: '',
             web3: null,
-            api: null
+            api: null,
+            loaded: false
         };
     }
 
@@ -44,7 +45,8 @@ export default class App extends Component {
             userInfo: userInfo,
             address: address,
             web3: web3,
-            api: api
+            api: api,
+            loaded: true
         });
     }
 
@@ -52,9 +54,9 @@ export default class App extends Component {
         return (
             <IpfsRouter>
                 <Switch>
-                    <Route exact path="/sell" render={(_props) => <Sell address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
-                    <Route exact path="/gallery" render={(_props) => <Gallery address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
-                    <Route exact path="/info/:id" render={(_props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
+                    <Route exact path="/sell" render={(_props) => <Sell loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
+                    <Route exact path="/gallery" render={(_props) => <Gallery loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
+                    <Route exact path="/info/:id" render={(_props) => <Info loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
                     <Route exact path="/" render={(_props) => <Home />} />
                 </Switch>
             </IpfsRouter>
