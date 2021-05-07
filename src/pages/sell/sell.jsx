@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from '../../components/header/header';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import IpfsHttpClient from 'ipfs-http-client';
 import emailjs from 'emailjs-com';
 import './sell.css';
 
@@ -28,11 +27,7 @@ export default class Sell extends Component {
             image: null,
             progress: 0,
             button_disabled: false,
-            ipfs: IpfsHttpClient({
-                host: "ipfs.infura.io",
-                port: "5001",
-                protocol: "https",
-            })
+            ipfs: this.props.ipfs,
         };
     }
 

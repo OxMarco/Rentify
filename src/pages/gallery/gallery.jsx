@@ -18,11 +18,7 @@ export default class Gallery extends Component {
         };
     }
 
-    componentDidMount() {
-        
-    }
-
-    async load () {
+    async componentDidMount () {
         if(! this.props.loaded ) return;
 
         this.setState({ address: this.props.address });

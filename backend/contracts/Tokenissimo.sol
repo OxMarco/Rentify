@@ -13,7 +13,7 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
 
     Counters.Counter private _tokenIds;
     mapping (uint256 => uint256) collaterals;
-    mapping (uint256 => address) rentee;
+    mapping (uint256 => address) tenant;
 
     constructor() ERC721("Tokenissimo", "TKN") {
     }
@@ -32,23 +32,23 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
 
     function burnIt(uint256 tokenId, address addr) external {
         require(ownerOf(tokenId) == addr, "Only the owner can burn it");
-        require(rentee[tokenId] == address(0), "The property is currently rented");
+        require(tenant[tokenId] == address(0), "The property is currently rented");
 
         _burn(tokenId);
     }
     
-    function rentIt(uint256 tokenId, address addr) external payable {
+    function startRent(uint256 tokenId, address addr) external payable {
         require(_exists(tokenId), "Query for nonexistent token");
-        require(rentee[tokenId] == address(0), "Already rented");
+        require(tenant[tokenId] == address(0), "Already rented");
         require(addr != ownerOf(tokenId), "The landlord cannot rent their own property");
         
         rentee[tokenId] = addr;
     }
     
-    function unrentIt(uint256 tokenId, address addr) external {
+    function stopRent(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
-        require(rentee[tokenId] != address(0), "Not rented");
-        require(rentee[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the rentee can void it");
+        require(tenant[tokenId] != address(0), "Not rented");
+        require(tenant[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the tenant can void it");
 
         delete rentee[tokenId];
     }
@@ -60,13 +60,13 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
     }
     
     /**
-     * @dev Returns the address of the rentee (or null) of the token.
+     * @dev Returns the address of the tenant (or null) of the token.
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      */
-    function tokenRentee(uint256 tokenId) external view returns(address) {
+    function tokenTenant(uint256 tokenId) external view returns(address) {
         require(_exists(tokenId), "Query for nonexistent token");
 
-        return rentee[tokenId];
+        return tenant[tokenId];
     }
     
     // Function to receive Ether. msg.data must be empty

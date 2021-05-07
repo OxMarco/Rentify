@@ -8,17 +8,19 @@ export default class Api {
         this.contract.setProvider(this.web3.currentProvider)
     }
 
+    async create(metadataCID, collateral) {
+        return await this.contract.create(metadataCID, collateral);
+    }
+
+    async remove(id) {
+        await this.contract.remove(id);
+    }
+
     async get(id) {
         try {
             let res = await this.contract.methods.get(id).call();
-            console.log("[API] Contract result:");
-            console.log(res);
 
             var metadataCID = res[0];
-
-            /*
-            console.log(collateral);
-            console.log(rentee);
             const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);
             const response = await res.json();
 
@@ -38,7 +40,6 @@ export default class Api {
             };
 
             return metadata;
-            */
         } catch(e) {
             console.error(e);
             return '';
