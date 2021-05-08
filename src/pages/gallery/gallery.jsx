@@ -84,12 +84,13 @@ export default class Gallery extends Component {
                                     <img src={token.image} className="card-img-top" alt="the property" />
                                     <div className="card-body">
                                         <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ day</small></h1>
-                                        <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                        <h6 className="card-subtitle mb-2 text-muted">{token.title}</h6>
                                         <ul className="list-unstyled mt-3 mb-4">
-                                            <li>10 users included</li>
-                                            <li>2 GB of storage</li>
-                                            <li>Email support</li>
-                                            <li>Help center access</li>
+                                            <li>{token.description}</li>
+                                            <li>{token.country}</li>
+                                            <li>{token.region}</li>
+                                            <li>{token.zip}</li>
+                                            <li>{token.surface} sqft</li>
                                         </ul>
                                         <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
                                         {token.owner === this.state.address &&
