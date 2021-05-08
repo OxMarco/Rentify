@@ -4,7 +4,7 @@ pragma abicoder v2;
 
 import "./Tokenissimo.sol";
 
-contract TheRentifier {
+contract Rentify {
 
     Tokenissimo private _tokenFactory;
     
@@ -22,8 +22,14 @@ contract TheRentifier {
         _tokenFactory.burnIt(id, msg.sender);
     }
     
-    function get(uint256 id) public view returns (string memory, uint256, address) {
-        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenTenant(id) );
+    function get(uint256 id) public view returns (string memory, uint256, address, address) {
+        if(_tokenFactory.exists(id)) return ('', 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000);
+
+        return ( _tokenFactory.tokenURI(id), _tokenFactory.tokenCollateral(id), _tokenFactory.tokenLandlord(), _tokenFactory.tokenTenant(id) );
+    }
+
+    function getAll() public view returns (uint256) {
+        return _tokenFactory.totalSupply();
     }
     
     function startRent(uint256 id) public payable {
@@ -35,5 +41,4 @@ contract TheRentifier {
     function stopRent(uint256 id) public {
         _tokenFactory.stopRent(id, msg.sender);
     }
-    
 }

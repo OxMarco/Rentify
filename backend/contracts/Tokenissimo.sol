@@ -6,12 +6,11 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contracts/token/ERC721/ERC721.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contracts/token/ERC721/ERC721Burnable.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contracts/utils/Counters.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contracts/access/Ownable.sol";
 
 import '../interfaces/aToken.sol';
 import '../interfaces/LendingPool.sol';
 
-contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
+contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
     using Counters for Counters.Counter;
 
     // Token
@@ -35,7 +34,7 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
      * @param collateral The collateral required as safe deposit.
      * @return The id of the new token.
      */
-    function mintIt(address receiver, string memory metadata, uint256 collateral) external onlyOwner returns (uint256) {
+    function mintIt(address receiver, string memory metadata, uint256 collateral) external returns (uint256) {
         _tokenIds.increment();
 
         uint256 tokenId = _tokenIds.current();
@@ -47,12 +46,17 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
         return tokenId;
     }
 
+    function totalSupply() external view returns (uint256) {
+        return _tokenIds.current();
+    }
+
     /**
      * @dev Removes a listing by burning the token.
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      * @param addr Address of the token owner (landlord).
      */
     function burnIt(uint256 tokenId, address addr) external {
+        require(_exists(tokenId), "Query for nonexistent token");
         require(ownerOf(tokenId) == addr, "Only the owner can burn it");
         require(tenant[tokenId] == address(0), "The property is currently rented");
 
@@ -95,20 +99,32 @@ contract Tokenissimo is ERC721, Ownable, ERC721Burnable {
      * @dev Returns the collateral linked to the token.
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      */
-    function tokenCollateral(uint256 tokenId) external view returns(uint256) {
-        require(_exists(tokenId), "Query for nonexistent token");
-        
+    function tokenCollateral(uint256 tokenId) external view returns(uint256) {        
         return collaterals[tokenId];
     }
     
     /**
+     * @dev Returns the address of the landlord (or null) of the token.
+     * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
+     */
+    function tokenLandlord(uint256 tokenId) external view returns(address) {        
+        return ownerOf(tokenId);
+    }
+
+    /**
      * @dev Returns the address of the tenant (or null) of the token.
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      */
-    function tokenTenant(uint256 tokenId) external view returns(address) {
-        require(_exists(tokenId), "Query for nonexistent token");
-
+    function tokenTenant(uint256 tokenId) external view returns(address) {        
         return tenant[tokenId];
+    }
+
+    /**
+     * @dev Checks if a token id exists
+     * @param tokenId The id of the token.
+     */
+    function exists(uint256 tokenId) external view returns (bool) {
+        return _exists(tokenId);
     }
     
     // Function to receive Ether. msg.data must be empty

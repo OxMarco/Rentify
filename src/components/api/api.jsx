@@ -8,63 +8,41 @@ export default class Api {
         this.contract.setProvider(this.web3.currentProvider)
     }
 
-    async create(metadataCID, collateral) {
-        return await this.contract.create(metadataCID, collateral);
+    async create(metadata, collateral) {
+        return await this.contract.methods.create(metadata, collateral).send();
     }
 
-    async remove(id) {
-        await this.contract.remove(id);
+    async getAll() {
+        return await this.contract.methods.getAll().call();
     }
 
     async get(id) {
-        try {
-            let res = await this.contract.methods.get(id).call();
+        let data = await this.contract.methods.get(id).call();
 
-            var metadataCID = res[0];
-            const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);
-            const response = await res.json();
+        var metadataCID = data[0];
+        const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);
+        const response = await res.json();
 
-            const metadata = {
-                latitude: response['latitude'],
-                longitude: response['longitude'],
-                country: response['country'],
-                region: response['region'],
-                zip: response['zip'],
-                title: response['title'],
-                description: response['description'],
-                surface: response['surface'],
-                price: response['price'],
-                deposit: res[1],
-                image: `https://ipfs.io/ipfs/${response['image']}`,
-                rentee: res[2]
-            };
+        const metadata = {
+            latitude: response['latitude'],
+            longitude: response['longitude'],
+            country: response['country'],
+            region: response['region'],
+            zip: response['zip'],
+            title: response['title'],
+            description: response['description'],
+            surface: response['surface'],
+            price: response['price'],
+            deposit: data[1],
+            image: `https://ipfs.io/ipfs/${response['image']}`,
+            owner: data[2],
+            rentee: data[3]
+        };
 
-            return metadata;
-        } catch(e) {
-            console.error(e);
-            return '';
-        }
-    }
-
-    async create(metadata, collateral) {
-        try {
-            const tokenId = await this.contract.methods.create(metadata, collateral).send();
-
-            return tokenId;
-        } catch(e) {
-            console.error(e);
-            return '';
-        }
+        return metadata;
     }
 
     async remove(tokenId) {
-        try {
-            await this.contract.methods.remove(tokenId).send();
-
-            return true;
-        } catch(e) {
-            console.error(e);
-            return false;
-        }
+        return await this.contract.methods.remove(tokenId).send();
     }
 }

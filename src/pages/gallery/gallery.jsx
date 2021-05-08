@@ -14,7 +14,8 @@ export default class Gallery extends Component {
             my_lat: 0,
             my_lng: 0,
             tokens: '',
-            address: ''
+            address: '',
+            tokens: [] 
         };
     }
 
@@ -23,9 +24,13 @@ export default class Gallery extends Component {
 
         this.setState({ address: this.props.address });
 
-        const res = await this.props.api.get(1);
-        console.log("[GALLERY] Contract result:");
-        console.log(res);
+        const all = await this.props.api.getAll();
+        var t = [];
+        for(var i = 0; i < all; i++) {
+            t.push(await this.props.api.get(i));
+        }
+
+        this.setState({ tokens: t });
     }
 
     geolocate() {
@@ -74,7 +79,7 @@ export default class Gallery extends Component {
                                     <div className="card-header">
                                         <h4 className="my-0 font-weight-normal">Free</h4>
                                     </div>
-                                    <img src={"https://ipfs.io/ipfs/"+token.image} className="card-img-top" alt="the property" />
+                                    <img src={token.image} className="card-img-top" alt="the property" />
                                     <div className="card-body">
                                         <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ mo</small></h1>
                                         <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>

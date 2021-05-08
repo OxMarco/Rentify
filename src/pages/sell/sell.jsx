@@ -258,7 +258,7 @@ export default class Sell extends Component {
                 </div>
 
                 <footer className="my-5 pt-5 text-muted text-center text-small">
-                    <p className="mb-1">- The Fluidifier -</p>
+                    <p className="mb-1">- Rentify -</p>
                     <ul className="list-inline">
                         <li className="list-inline-item"><a href="/">Home</a></li>
                         <li className="list-inline-item"><a href="/gallery">Gallery</a></li>

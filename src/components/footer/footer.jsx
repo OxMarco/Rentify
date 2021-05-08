@@ -7,7 +7,7 @@ function Footer({classProp}) {
                 <div className="row">
                     <div className="col-12 col-md">
                         <img className="mb-2" src="https://i.ibb.co/ZX6zXDC/house.png" alt="logo" width="50" height="50" />
-                        <small className="d-block mb-3 text-muted">The Fluidifier</small>
+                        <small className="d-block mb-3 text-muted">Rentify</small>
                     </div>
                     <div className="col-6 col-md">
                         <h5>Sponsors</h5>

@@ -1,4 +1,8 @@
-# The Fluidifier
+# Rentify
+Fluidify rental agreements on a decentralised and interest-generating platform.
+
+## Abstract
+Short term and long term rental contracts can be ported to the blockchain world 
 
 ## Introduction
 Created for the "Scaling Ethereum" hack, a marketplace for real estate properties based on Superfluid cashflow system
