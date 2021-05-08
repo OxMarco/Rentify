@@ -2,7 +2,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 pragma abicoder v2;
 
-interface AToken {
+interface IaToken {
     /**
      * @dev redeems aToken for the underlying asset
      * @param _amount the amount being redeemed
@@ -17,4 +17,3 @@ interface AToken {
      */
     function balanceOf(address _user) external view returns (uint256);
 }
-

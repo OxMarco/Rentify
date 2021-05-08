@@ -10,7 +10,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contr
 import '../interfaces/aToken.sol';
 import '../interfaces/LendingPool.sol';
 
-contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
+contract Tokenissimo is ERC721, ERC721Burnable {
     using Counters for Counters.Counter;
 
     // Token
@@ -32,7 +32,6 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
      * @param receiver Address of the token owner (landlord).
      * @param metadata The IPFS CID where metadata is stored
      * @param collateral The collateral required as safe deposit.
-     * @return The id of the new token.
      */
     function mintIt(address receiver, string memory metadata, uint256 collateral) external returns (uint256) {
         _tokenIds.increment();
@@ -44,10 +43,6 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
         collaterals[tokenId] = collateral;
 
         return tokenId;
-    }
-
-    function totalSupply() external view returns (uint256) {
-        return _tokenIds.current();
     }
 
     /**
@@ -131,6 +126,13 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
         return _exists(tokenId);
     }
     
+    /**
+     * @dev Returns the token counter.
+     */
+    function allTokens() external view returns (uint256) {
+        return _tokenIds.current();
+    }
+
     // Function to receive Ether. msg.data must be empty
     receive() external payable {}
     
