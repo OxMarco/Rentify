@@ -36,7 +36,7 @@ export default class Footer extends Component {
                                 <li><Link className="text-muted" to="/">Home</Link></li>
                                 <li><Link className="text-muted" to="/gallery">Gallery</Link></li>
                                 <li><Link className="text-muted" to="/sell">Sell</Link></li>
-                                <li><Link className="text-muted" to="/about">About</Link></li>
+                                <li><Link className="text-muted" to="/dashboard">Dashboard</Link></li>
                             </ul>
                         </div>
                         <div className="col-6 col-md">

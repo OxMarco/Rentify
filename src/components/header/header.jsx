@@ -13,7 +13,7 @@ export default class Header extends Component {
                     <Link className="py-2 d-none d-md-inline-block" to="/">Home</Link>
                     <Link className="py-2 d-none d-md-inline-block" to="/gallery">Gallery</Link>
                     <Link className="py-2 d-none d-md-inline-block" to="/sell">Sell</Link>
-                    <Link className="py-2 d-none d-md-inline-block" to="/about">About</Link>
+                    <Link className="py-2 d-none d-md-inline-block" to="/dashboard">Dashboard</Link>
                 </div>
             </nav>
         );
