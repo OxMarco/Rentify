@@ -15,7 +15,7 @@ import Loader from './components/loader/loader';
 
 import Api from './components/api/api';
 
-export default class App extends Component {
+export default class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -90,10 +90,10 @@ export default class App extends Component {
                 <>
                 <Header />
                 <Switch>
-                    <Route exact path="/sell" render={(_props) => <Sell loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
-                    <Route exact path="/gallery" render={(_props) => <Gallery loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
-                    <Route exact path="/info/:id" render={(_props) => <Info loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
-                    <Route exact path="/" render={(_props) => <Home />} />
+                    <Route exact path="/sell" render={(props) => <Sell address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
+                    <Route exact path="/gallery" render={(props) => <Gallery address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
+                    <Route exact path="/info/:id" render={(props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
+                    <Route exact path="/" render={(props) => <Home />} />
                 </Switch>
                 <Footer classProp="pt-4 my-md-5 pt-md-5 border-top" />
                 </>

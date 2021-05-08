@@ -33,6 +33,7 @@ export default class Api {
         const response = await res.json();
 
         const metadata = {
+            id: id,
             latitude: response['latitude'],
             longitude: response['longitude'],
             country: response['country'],

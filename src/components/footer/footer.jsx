@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-function Footer({classProp}) {
+export default class Footer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            classProp: this.props.classProp
+        };
+    }
+
+    render() {
+        const { classProp } = this.state;
+
         return (
             <footer className={classProp}>
                 <div className='container'>
@@ -41,6 +52,5 @@ function Footer({classProp}) {
                 </div>
             </footer>
         );
+    }
 }
-
-export default React.memo(Footer)
