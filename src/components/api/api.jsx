@@ -32,6 +32,13 @@ export default class Api {
         const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);
         const response = await res.json();
 
+        /*
+        const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
+        const priceRes = await apiRes.json();
+        const price_usd = (priceRes['USD'] * this.web3.utils.fromWei(response['price'])).toString();
+        const deposit_usd = (priceRes['USD'] * this.web3.utils.fromWei(data[1])).toString();
+*/
+
         const metadata = {
             id: id,
             latitude: response['latitude'],

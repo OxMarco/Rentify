@@ -76,14 +76,14 @@ export default class Gallery extends Component {
                         <div className="col-8">
                             <div className="card-deck mb-3 text-center">
 
-                                { this.state.tokens && this.state.tokens.map((token, i) =>
-                                <div className="card mb-4 box-shadow" key={i}>
+                                { this.state.tokens && this.state.tokens.filter(token => token.tenant === 0x0000000000000000000000000000000000000000).map((token) =>
+                                <div className="card mb-4 box-shadow" key={token.id}>
                                     <div className="card-header">
                                         <h4 className="my-0 font-weight-normal">Free</h4>
                                     </div>
                                     <img src={token.image} className="card-img-top" alt="the property" />
                                     <div className="card-body">
-                                        <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ mo</small></h1>
+                                        <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ day</small></h1>
                                         <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
                                         <ul className="list-unstyled mt-3 mb-4">
                                             <li>10 users included</li>

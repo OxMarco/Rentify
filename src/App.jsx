@@ -6,6 +6,7 @@ import Torus from "@toruslabs/torus-embed";
 import Web3 from "web3";
 
 import Home from './pages/home/home';
+import About from './pages/about/about';
 import Gallery from './pages/gallery/gallery';
 import Info from './pages/info/info';
 import Sell from './pages/sell/sell';
@@ -92,6 +93,7 @@ export default class App extends React.PureComponent {
                 <Switch>
                     <Route exact path="/sell" render={(props) => <Sell address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
                     <Route exact path="/gallery" render={(props) => <Gallery address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
+                    <Route exact path="/about" render={(props) => <About address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
                     <Route exact path="/info/:id" render={(props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
                     <Route exact path="/" render={(props) => <Home />} />
                 </Switch>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
+import SweetAlert from 'sweetalert2-react';
 import MapBox from '../../components/mapbox/mapbox';
 import './info.css';
 
@@ -11,6 +13,8 @@ export default class Info extends Component {
 
         this.state = {
             token: null,
+            show: false,
+            redirect_url: '',
         };
     }
 
@@ -22,9 +26,7 @@ export default class Info extends Component {
         this.setState({ token: data });
     }
 
-    async buy(id) {
-        await this.props.login()
-
+    async rent(id) {
         const sf = new SuperfluidSDK.Framework({
             web3: this.props.web3,
         });
@@ -38,16 +40,28 @@ export default class Info extends Component {
         const details = await sfUser.details();
 
         await sfUser.flow({
-            recipient: '0x35d389B751943Cbf3fE3620a668566E97D5f0144',
+            recipient: this.token.owner,
             flowRate: '1000'
         });
+
+        this.setState({ show: true });
     }
 
     render() {
-        const { token } = this.state;
+        const { token, show, redirect_url } = this.state;
+
+        if (redirect_url) {
+            return <Redirect to={redirect_url} />
+        }
 
         return (
         <div className="container">
+            <SweetAlert
+                show={show}
+                title="Success"
+                text="You have successfully rented this property!"
+                onConfirm={() => this.setState({ show: false, redirect_url: 'gallery' })}
+            />
             <div className="py-5 text-center">
                 <h2 className="display-4">Details</h2>
                 <p className="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
@@ -86,7 +100,7 @@ export default class Info extends Component {
                             </div>
                             <p>{token.description}</p>
                             <div className="product-count">
-                                <a href="#" className="round-black-btn">Rent Now</a>
+                                <a href="#" onClick={() => this.rent(token.id)} className="round-black-btn">Rent Now</a>
                             </div>
                         </div>
                     </div>
@@ -99,14 +113,13 @@ export default class Info extends Component {
                         <li className="nav-item">
                             <a className="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews (0)</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="false">Map</a>
+                        </li>
                     </ul>
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                             {token.description}
-                            <br />
-                            <div className="row-fluid">
-                                <MapBox lat={token.latitude} lng={token.longitude} />
-                            </div>
                         </div>
                         <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                             <div className="review-heading">REVIEWS</div>
@@ -147,6 +160,11 @@ export default class Info extends Component {
                                 </div>
                                 <button className="round-black-btn">Submit Review</button>
                             </form>
+                        </div>
+                        <div className="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
+                            <div className="row-fluid">
+                                <MapBox lat={token.latitude} lng={token.longitude} />
+                            </div>
                         </div>
                     </div>
                 </div>
