@@ -22,11 +22,11 @@ export default class App extends Component {
             web3: null,
             api: null,
             ipfs: null,
-            loaded: false
+            loggedIn: false
         };
     }
 
-    async componentDidMount() {
+    async init() {
         const torus = new Torus({});
         await torus.init({
             enableLogging: false,
@@ -54,8 +54,22 @@ export default class App extends Component {
             web3: web3,
             api: api,
             ipfs: ipfs,
-            loaded: true
+            loggedIn: true
         });
+    }
+
+    async ensureLoggedIn() {
+        while (!this.state.loggedIn) {
+            try {
+                await this.init();
+            } catch (e) {
+                console.error("Login failed: " + e.toString());
+            }
+        }
+    }
+
+    async componentDidMount() {
+        await this.ensureLoggedIn();
     }
 
     render() {
