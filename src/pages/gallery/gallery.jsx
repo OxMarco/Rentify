@@ -76,7 +76,7 @@ export default class Gallery extends Component {
                         <div className="col-8">
                             <div className="card-deck mb-3 text-center">
 
-                                { this.state.tokens && this.state.tokens.filter(token => token.tenant === 0x0000000000000000000000000000000000000000).map((token) =>
+                                { this.state.tokens && this.state.tokens.filter(token => token.tenant === '0x0000000000000000000000000000000000000000').map((token) =>
                                 <div className="card mb-4 box-shadow" key={token.id}>
                                     <div className="card-header">
                                         <h4 className="my-0 font-weight-normal">Free</h4>

@@ -40,7 +40,7 @@ function Map({ latitude, longitude, markers }) {
         >
         {markers && markers.map(function(m){
                 const center = { lat: parseFloat(m.latitude), lng: parseFloat(m.longitude) };
-                return <Marker position={center} label={m.title} key={m.price} />;
+                return <Marker position={center} label={m.title} key={m.id} />;
             })
         }
         <></>
