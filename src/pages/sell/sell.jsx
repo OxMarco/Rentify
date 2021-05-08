@@ -26,7 +26,6 @@ export default class Sell extends Component {
             image: null,
             progress: 0,
             button_disabled: false,
-            ipfs: this.props.ipfs,
         };
     }
 
@@ -45,7 +44,7 @@ export default class Sell extends Component {
 
         this.setState({progress: 25});
 
-        const imageCID = await this.state.ipfs.add(e.target.files[0], {
+        const imageCID = await this.props.ipfs.add(this.state.image, {
             progress: (prog) => console.log(prog),
         });
         console.log(imageCID);
@@ -65,7 +64,7 @@ export default class Sell extends Component {
             image: imageCID
         });
 
-        const metadataCID = await this.state.ipfs.add(data);
+        const metadataCID = await this.props.ipfs.add(data);
         console.log("IPFS CID:", metadataCID);
 
         this.setState({progress: 75});
@@ -74,7 +73,7 @@ export default class Sell extends Component {
     
         const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
         const priceRes = await apiRes.json();
-        const price_eth = this.props.web3.utils.toWei(priceRes['ETH'] * this.state.deposit);
+        const price_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.deposit).toString());
 
         const flag = await this.props.api.create(metadataCID, price_eth);
         if(!flag) alert('Error');

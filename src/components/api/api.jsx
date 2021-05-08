@@ -2,14 +2,15 @@ import ABI from '../../abi.json';
 import Contract from 'web3-eth-contract';
 
 export default class Api {
-    constructor(web3) {
+    constructor(web3, address) {
+        this.address = address;
         this.web3 = web3;
         this.contract = new this.web3.eth.Contract(ABI, '0xd00d47e7164df50b96fdd6a3971d50d0b5ed69a4')
         this.contract.setProvider(this.web3.currentProvider)
     }
 
     async create(metadata, collateral) {
-        return await this.contract.methods.create(metadata, collateral).send();
+        return await this.contract.methods.create(metadata, collateral).send({from: this.address});
     }
 
     async getAll() {
