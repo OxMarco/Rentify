@@ -17,13 +17,13 @@ export default class Gallery extends Component {
     }
 
     async componentDidMount () {
-        if(! this.props.loaded ) return;
 
         this.setState({ address: this.props.address });
 
         const all = await this.props.api.getAll();
+
         var t = [];
-        for(var i = 0; i < all; i++) {
+        for(var i = 1; i <= all; i++) {
             var temp = await this.props.api.get(i);
             if(temp != null)
                 t.push(temp);
@@ -57,8 +57,6 @@ export default class Gallery extends Component {
             return <Redirect to={this.state.redirect_url + '/' + this.state.redirect_param} />
         }
 
-        const { tokens, my_lat, my_lng, address } = this.state;
-
         return (
             <>
                 <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -71,7 +69,7 @@ export default class Gallery extends Component {
                         <div className="col-8">
                             <div className="card-deck mb-3 text-center">
 
-                                {tokens && tokens.map((token, i) =>
+                                { this.state.tokens && this.state.tokens.map((token, i) =>
                                 <div className="card mb-4 box-shadow" key={i}>
                                     <div className="card-header">
                                         <h4 className="my-0 font-weight-normal">Free</h4>
@@ -87,7 +85,7 @@ export default class Gallery extends Component {
                                             <li>Help center access</li>
                                         </ul>
                                         <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
-                                        {token.owner === address &&
+                                        {token.owner === this.state.address &&
                                         <button type="button" className="btn btn-lg btn-block btn-outline-danger" onClick={() => this.remove(token.id)}>Remove</button>
                                         }
                                     </div>
@@ -97,7 +95,7 @@ export default class Gallery extends Component {
                             </div>
                         </div>
                         <div className="col-4">
-                            <Map latitude={my_lat} longitude={my_lng} markers={tokens} />
+                            <Map latitude={this.state.my_lat} longitude={this.state.my_lng} markers={this.state.tokens} />
                         </div>
                     </div>
                 </div>
