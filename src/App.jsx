@@ -26,6 +26,8 @@ export default class App extends Component {
             ipfs: null,
             loggedIn: false
         };
+
+        this.ensureLoggedIn = this.ensureLoggedIn.bind(this);
     }
 
     async init() {
@@ -70,15 +72,11 @@ export default class App extends Component {
         }
     }
 
-    async componentDidMount() {
-        await this.ensureLoggedIn();
-    }
-
     render() {
         return (
             <IpfsRouter>
                 <>
-                <Header/>
+                <Header ensureLoggedIn={this.ensureLoggedIn} />
                 <Switch>
                     <Route exact path="/sell" render={(_props) => <Sell loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
                     <Route exact path="/gallery" render={(_props) => <Gallery loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
