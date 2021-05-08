@@ -25,7 +25,9 @@ export default class Gallery extends Component {
         const all = await this.props.api.getAll();
         var t = [];
         for(var i = 0; i < all; i++) {
-            t.push(await this.props.api.get(i));
+            var temp = await this.props.api.get(i);
+            if(temp != null)
+                t.push(temp);
         }
 
         this.setState({ tokens: t });

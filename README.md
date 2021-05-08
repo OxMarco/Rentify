@@ -71,13 +71,16 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+To bring Rentify to life we integrated the following awesome projects:
+
 * [SuperFluid](https://www.superfluid.finance)
 * [Torus](https://tor.us)
 * [Aave](https://aave.com)
-* [Matic](https://matic.network)
+* [Matic/Polygon](https://matic.network)
+* And a sprinkle of *ReactJs*
 
-And a sprinkle of *ReactJs*
+In particular, *SuperFluid* allows us to create dynamic cashflows, *Torus* acts as the main user wallet also providing email and username data, security deposits are invested into *Aave*'s lending pools to generate interests to keep the app alive (and free!) while the smart contracts themselves are deployed on *Matic/Polygon* L2 chain.
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -87,7 +90,8 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+To setup the development environment, run the following commands:
+
 * npm
   ```sh
   npm install --global npm@latest
@@ -99,6 +103,8 @@ This is an example of how to list things you need to use the software and how to
   ```
 
 ### Installation
+
+To install the repository and run it locally:
 
 1. Clone the repo
    ```sh
@@ -118,7 +124,7 @@ This is an example of how to list things you need to use the software and how to
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](https://example.com/about)_
 
 <!-- ROADMAP -->
 ## Roadmap
