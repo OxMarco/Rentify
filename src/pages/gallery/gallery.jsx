@@ -12,7 +12,7 @@ export default class Gallery extends Component {
             my_lat: 0,
             my_lng: 0,
             address: '',
-            tokens: [],
+            tokens: []
         };
     }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import emailjs from 'emailjs-com';
+import SweetAlert from 'sweetalert2-react';
 import './sell.css';
 
 export default class Sell extends Component {
@@ -23,6 +24,7 @@ export default class Sell extends Component {
             image: null,
             progress: 0,
             button_disabled: false,
+            show: false
         };
     }
 
@@ -79,7 +81,7 @@ export default class Sell extends Component {
         console.log("done");
         if(!flag) alert('Error');
 
-        this.setState({progress: 100, button_disabled: false });
+        this.setState({progress: 100, button_disabled: false, show: true });
 
         e.target.reset();
     }
@@ -123,7 +125,8 @@ export default class Sell extends Component {
                 price,
                 deposit,
                 progress,
-                button_disabled
+                button_disabled,
+                show
             } = this.state;
 
         return (
@@ -133,6 +136,13 @@ export default class Sell extends Component {
                     <h2 className="display-4">Let a Property</h2>
                     <p className="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
                 </div>
+
+                <SweetAlert
+                    show={show}
+                    title="Success"
+                    text="You have successfully created a listing for this property!"
+                    onConfirm={() => this.setState({ show: false, progress: 0 })}
+                />
 
                 <div className="row">
                     <div className="col">

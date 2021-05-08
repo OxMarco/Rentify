@@ -13,8 +13,6 @@ export default class Home extends Component {
                         <p className="lead font-weight-normal">Decentralized short term lettings</p>
                         <Link className="btn btn-outline-secondary" to="/gallery">Explore Opportunities</Link>
                     </div>
-                    <div className="product-device box-shadow d-none d-md-block"></div>
-                    <div className="product-device product-device-2 box-shadow d-none d-md-block"></div>
                 </div>
 
                 <div className="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
