@@ -11,7 +11,6 @@ export default class Gallery extends Component {
             redirect_url: '',
             my_lat: 0,
             my_lng: 0,
-            tokens: '',
             address: '',
             tokens: [],
         };

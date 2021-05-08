@@ -1,5 +1,4 @@
 import ABI from '../../abi.json';
-import Contract from 'web3-eth-contract';
 
 export default class Api {
     constructor(web3, address) {
