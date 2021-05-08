@@ -9,10 +9,28 @@ export default class Api {
     }
 
     async create(metadata, collateral) {
-        console.info("api.create");
-        console.info(metadata);
-        console.info(collateral);
-        return await this.contract.methods.create(metadata, collateral).send({from: this.address});
+        this.contract.methods.create(metadata, collateral).send({from: this.address})
+            .on('transactionHash', function(hash) {
+                console.log('Transaction hash: ');
+                console.log(hash);
+            })
+            .on('confirmation', function(confirmationNumber, receipt) {
+                console.log('confirmation');
+                console.log(confirmationNumber);
+                console.log(receipt);
+            })
+            .on('receipt', function(receipt) {
+                console.log('receipt');
+                console.log(receipt);
+            })
+            .on('error', function(error, receipt) {
+                console.log('error');
+                console.log(error);
+                console.log(receipt);
+            });
+
+
+        return true;
     }
 
     async getAll() {
