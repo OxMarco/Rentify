@@ -11,6 +11,7 @@ import Info from './pages/info/info';
 import Sell from './pages/sell/sell';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
+import Loader from './components/loader/loader';
 
 import Api from './components/api/api';
 
@@ -73,6 +74,13 @@ export default class App extends Component {
     }
 
     render() {
+        const { loggedIn } = this.state;
+
+        if(!loggedIn)
+         return(
+             <Loader />
+         );
+        else
         return (
             <IpfsRouter>
                 <>
