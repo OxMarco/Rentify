@@ -73,6 +73,10 @@ export default class App extends Component {
         }
     }
 
+    async componentDidMount() {
+        await this.ensureLoggedIn();
+    }
+
     render() {
         const { loggedIn } = this.state;
 
@@ -81,19 +85,19 @@ export default class App extends Component {
                 <Loader />
             );
         else
-            return (
-                <IpfsRouter>
-                    <>
-                    <Header ensureLoggedIn={this.ensureLoggedIn} />
-                    <Switch>
-                        <Route exact path="/sell" render={(_props) => <Sell loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
-                        <Route exact path="/gallery" render={(_props) => <Gallery loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
-                        <Route exact path="/info/:id" render={(_props) => <Info loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
-                        <Route exact path="/" render={(_props) => <Home />} />
-                    </Switch>
-                    <Footer classProp="pt-4 my-md-5 pt-md-5 border-top" />
-                    </>
-                </IpfsRouter>
-            );
+        return (
+            <IpfsRouter>
+                <>
+                <Header />
+                <Switch>
+                    <Route exact path="/sell" render={(_props) => <Sell loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
+                    <Route exact path="/gallery" render={(_props) => <Gallery loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
+                    <Route exact path="/info/:id" render={(_props) => <Info loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
+                    <Route exact path="/" render={(_props) => <Home />} />
+                </Switch>
+                <Footer classProp="pt-4 my-md-5 pt-md-5 border-top" />
+                </>
+            </IpfsRouter>
+        );
     }
 }

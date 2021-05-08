@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 
 export default class Header extends Component {
 
-    async componentDidMount() {
-        await this.props.ensureLoggedIn();
-    }
-
     render() {
         return (
             <nav className="site-header sticky-top py-1">
