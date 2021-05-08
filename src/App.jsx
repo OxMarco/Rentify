@@ -9,6 +9,8 @@ import Home from './pages/home/home';
 import Gallery from './pages/gallery/gallery';
 import Info from './pages/info/info';
 import Sell from './pages/sell/sell';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
 
 import Api from './components/api/api';
 
@@ -75,12 +77,16 @@ export default class App extends Component {
     render() {
         return (
             <IpfsRouter>
+                <>
+                <Header/>
                 <Switch>
                     <Route exact path="/sell" render={(_props) => <Sell loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
                     <Route exact path="/gallery" render={(_props) => <Gallery loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} />} />
                     <Route exact path="/info/:id" render={(_props) => <Info loaded={this.state.loaded} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} />} />
                     <Route exact path="/" render={(_props) => <Home />} />
                 </Switch>
+                <Footer classProp="pt-4 my-md-5 pt-md-5 border-top" />
+                </>
             </IpfsRouter>
         );
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from '../../components/header/header';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import emailjs from 'emailjs-com';
@@ -129,8 +128,6 @@ export default class Sell extends Component {
 
         return (
         <>
-            <Header />
-
             <div className="container">
                 <div className="py-5 text-center">
                     <h2 className="display-4">Let a Property</h2>
@@ -256,15 +253,6 @@ export default class Sell extends Component {
                         </form>
                     </div>
                 </div>
-
-                <footer className="my-5 pt-5 text-muted text-center text-small">
-                    <p className="mb-1">- Rentify -</p>
-                    <ul className="list-inline">
-                        <li className="list-inline-item"><a href="/">Home</a></li>
-                        <li className="list-inline-item"><a href="/gallery">Gallery</a></li>
-                        <li className="list-inline-item"><a href="/about">About</a></li>
-                    </ul>
-                </footer>
             </div>
       </>
         );

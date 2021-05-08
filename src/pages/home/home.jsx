@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
 import './home.css';
 
 export default class Home extends Component {
@@ -9,8 +7,6 @@ export default class Home extends Component {
     render() {
         return (
             <>
-                <Header />
-
                 <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
                     <div className="col-md-5 p-lg-5 mx-auto my-5">
                         <h1 className="display-4 font-weight-normal">Rentify</h1>
@@ -37,8 +33,6 @@ export default class Home extends Component {
                         <div className="bg-dark box-shadow mx-auto custom"></div>
                     </div>
                 </div>
-
-                <Footer classProp="container py-5" />
             </>
         );
     }
