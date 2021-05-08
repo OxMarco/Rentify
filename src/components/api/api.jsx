@@ -4,7 +4,7 @@ import Contract from 'web3-eth-contract';
 export default class Api {
     constructor(web3) {
         this.web3 = web3;
-        this.contract = new this.web3.eth.Contract(ABI, '0x1dE9993Be1Fe26712b2C2ade4a3bA7E044591E90')
+        this.contract = new this.web3.eth.Contract(ABI, '0xd00d47e7164df50b96fdd6a3971d50d0b5ed69a4')
         this.contract.setProvider(this.web3.currentProvider)
     }
 
