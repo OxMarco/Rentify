@@ -33,7 +33,7 @@ contract Rentify {
     }
     
     function startRent(uint256 id) public payable {
-        require(msg.value >= _tokenFactory.tokenCollateral(id), "Insufficient funds sent");
+        require(msg.value == _tokenFactory.tokenCollateral(id), "Insufficient funds sent");
     
         _tokenFactory.startRent(id, msg.sender);
     }

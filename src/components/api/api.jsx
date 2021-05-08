@@ -17,7 +17,7 @@ export default class Api {
     }
 
     async get(id) {
-        let data = await this.contract.methods.get(id).call();
+        let data = await this.contract.methods.get(id).call(); // 0 => metadata, 1 => collateral, 2 => owner, 3 => tenant
 
         var metadataCID = data[0];
         const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);
@@ -36,7 +36,7 @@ export default class Api {
             deposit: data[1],
             image: `https://ipfs.io/ipfs/${response['image']}`,
             owner: data[2],
-            rentee: data[3]
+            tenant: data[3]
         };
 
         return metadata;

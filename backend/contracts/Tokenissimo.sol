@@ -16,7 +16,7 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
     // Token
     Counters.Counter private _tokenIds;
     mapping (uint256 => uint256) collaterals;
-    mapping (uint256 => address) tenant;
+    mapping (uint256 => address) tenants;
 
     // Aave
     IERC20 public weth = IERC20(0xd0A1E359811322d97991E03f863a0C30C2cF029C);
@@ -58,7 +58,7 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
     function burnIt(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
         require(ownerOf(tokenId) == addr, "Only the owner can burn it");
-        require(tenant[tokenId] == address(0), "The property is currently rented");
+        require(tenants[tokenId] == address(0), "The property is currently rented");
 
         _burn(tokenId);
     }
@@ -70,13 +70,15 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
      */
     function startRent(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
-        require(tenant[tokenId] == address(0), "Already rented");
+        require(tenants[tokenId] == address(0), "Already rented");
         require(addr != ownerOf(tokenId), "The landlord cannot rent their own property");
         
-        require(weth.transferFrom(msg.sender, address(this), collaterals[tokenId]), "WETH Transfer failed!");
-        aaveLendingPool.deposit(address(weth), collaterals[tokenId], 0);
+        if(collaterals[tokenId] > 0) {
+            require(weth.transferFrom(msg.sender, address(this), collaterals[tokenId]), "WETH Transfer failed!");
+            aaveLendingPool.deposit(address(weth), collaterals[tokenId], 0);
+        }
 
-        rentee[tokenId] = addr;
+        tenants[tokenId] = addr;
     }
     
     /**
@@ -86,13 +88,15 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
      */
     function stopRent(uint256 tokenId, address addr) external {
         require(_exists(tokenId), "Query for nonexistent token");
-        require(tenant[tokenId] != address(0), "Not rented");
-        require(tenant[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the tenant can void it");
+        require(tenants[tokenId] != address(0), "Not rented");
+        require(tenants[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the tenant can void it");
 
-        aToken.redeem(collaterals[tokenId]);
-        require(weth.transferFrom(address(this), msg.sender, collaterals[tokenId]), "WETH Transfer failed!");
+        if(collaterals[tokenId] > 0) {
+            aToken.redeem(collaterals[tokenId]);
+            require(weth.transferFrom(address(this), msg.sender, collaterals[tokenId]), "WETH Transfer failed!");
+        }
 
-        delete rentee[tokenId];
+        delete tenants[tokenId];
     }
     
     /**
@@ -116,7 +120,7 @@ contract Tokenissimo is ERC721, ERC721Burnable, IERC721Enumerable {
      * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
      */
     function tokenTenant(uint256 tokenId) external view returns(address) {        
-        return tenant[tokenId];
+        return tenants[tokenId];
     }
 
     /**

@@ -229,7 +229,7 @@ export default class Sell extends Component {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" id="basic-addon3">$</span>
                                         </div>
-                                        <input type="number" className="form-control" name="deposit" id="deposit" placeholder="100" min="50" max="10000" value={deposit} onChange={this.handleChange} required />
+                                        <input type="number" className="form-control" name="deposit" id="deposit" placeholder="100" min="0" max="10000" value={deposit} onChange={this.handleChange} required />
                                         <div className="invalid-feedback">
                                             Please choose a valid option.
                                         </div>
