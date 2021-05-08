@@ -18,7 +18,7 @@ export default class Api {
 
     async get(id) {
         let data = await this.contract.methods.get(id).call(); // 0 => metadata, 1 => collateral, 2 => owner, 3 => tenant
-        if(data[0] == null || data[0] == '') return null;
+        if(data[0] === null || data[0] === '') return null;
 
         var metadataCID = data[0];
         const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);
