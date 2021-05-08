@@ -41,24 +41,25 @@ export default class Sell extends Component {
 
         this.setState({progress: 25});
 
-        const imageCID = await this.props.ipfs.add(this.state.image, {
+        const image = await this.props.ipfs.add(this.state.image, {
             progress: (prog) => console.log(prog),
         });
+        const imageCID = image.path;
         console.log(imageCID);
 
         this.setState({progress: 50});
 
         const data = JSON.stringify({ 
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
+            latitude: parseFloat(this.state.latitude),
+            longitude: parseFloat(this.state.longitude),
             country: this.state.country,
             region: this.state.region,
             zip: this.state.zip,
             title: this.state.title,
             description: this.state.description,
-            surface: this.state.surface,
-            price: this.state.price,
-            image: imageCID
+            surface: parseFloat(this.state.surface),
+            price: parseFloat(this.state.price),
+            image: imageCID,
         });
 
         const metadata = await this.props.ipfs.add(data);
@@ -73,7 +74,9 @@ export default class Sell extends Component {
         const priceRes = await apiRes.json();
         const price_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.deposit).toString());
 
+        console.log("Creating contract ...");
         const flag = await this.props.api.create(metadataCID, price_eth);
+        console.log("done");
         if(!flag) alert('Error');
 
         this.setState({progress: 100, button_disabled: false });
