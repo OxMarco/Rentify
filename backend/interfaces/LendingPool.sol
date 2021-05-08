@@ -2,7 +2,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 pragma abicoder v2;
 
-interface LendingPool {
+interface IAaveLendingPool {
     /**
      * @dev deposits The underlying asset into the reserve. A corresponding amount of the overlying asset (aTokens)
      * is minted.
@@ -10,5 +10,5 @@ interface LendingPool {
      * @param _amount the amount to be deposited
      * @param _referralCode integrators are assigned a referral code and can potentially receive rewards.
      */
-    function deposit(address _reserve, uint256 _amount, uint16 _referralCode) external payable;
+    function deposit(address _reserve, uint256 _amount, uint16 _referralCode) external;
 }
