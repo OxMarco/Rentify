@@ -64,7 +64,8 @@ export default class Sell extends Component {
             image: imageCID
         });
 
-        const metadataCID = await this.props.ipfs.add(data);
+        const metadata = await this.props.ipfs.add(data);
+        const metadataCID = metadata.path;
         console.log("IPFS CID:", metadataCID);
 
         this.setState({progress: 75});
@@ -75,6 +76,9 @@ export default class Sell extends Component {
         const priceRes = await apiRes.json();
         const price_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.deposit).toString());
 
+        console.info("sell.create");
+        console.info(metadataCID);
+        console.info(price_eth);
         const flag = await this.props.api.create(metadataCID, price_eth);
         if(!flag) alert('Error');
 

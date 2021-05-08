@@ -9,6 +9,9 @@ export default class Api {
     }
 
     async create(metadata, collateral) {
+        console.info("api.create");
+        console.info(metadata);
+        console.info(collateral);
         return await this.contract.methods.create(metadata, collateral).send({from: this.address});
     }
 
@@ -17,7 +20,12 @@ export default class Api {
     }
 
     async get(id) {
+        console.info("Api get")
+        console.info(id);
         let data = await this.contract.methods.get(id).call(); // 0 => metadata, 1 => collateral, 2 => owner, 3 => tenant
+
+        console.info(data);
+
         if(data[0] === null || data[0] === '') return null;
 
         var metadataCID = data[0];

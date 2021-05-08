@@ -17,10 +17,14 @@ export default class Gallery extends Component {
     }
 
     async componentDidMount () {
+        console.info("Did mount");
+        console.info("Has logged in");
 
         this.setState({ address: this.props.address });
 
         const all = await this.props.api.getAll();
+
+        console.info(all);
 
         var t = [];
         for(var i = 1; i <= all; i++) {
@@ -28,6 +32,9 @@ export default class Gallery extends Component {
             if(temp != null)
                 t.push(temp);
         }
+
+        console.info("Data:")
+        console.info(t);
 
         this.setState({ tokens: t });
     }
