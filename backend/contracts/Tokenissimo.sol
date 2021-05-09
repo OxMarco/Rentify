@@ -7,25 +7,16 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contracts/token/ERC721/ERC721Burnable.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.3.0/contracts/utils/Counters.sol";
 
-import '../interfaces/aToken.sol';
-import '../interfaces/LendingPool.sol';
-
 contract Tokenissimo is ERC721, ERC721Burnable {
     using Counters for Counters.Counter;
 
     // Token
     Counters.Counter private _tokenIds;
+    mapping (uint256 => uint256) prices;
     mapping (uint256 => uint256) collaterals;
     mapping (uint256 => address) tenants;
 
-    // Aave
-    IERC20 public weth = IERC20(0xd0A1E359811322d97991E03f863a0C30C2cF029C);
-    IaToken public aToken = IaToken(0x87b1f4cf9BD63f7BBD3eE1aD04E8F52540349347);
-    IAaveLendingPool public aaveLendingPool = IAaveLendingPool(0xE0fBa4Fc209b4948668006B2bE61711b7f465bAe);
-
-    constructor() ERC721("Tokenissimo", "TKN") {
-        weth.approve(address(aaveLendingPool), type(uint256).max);
-    }
+    constructor() ERC721("Tokenissimo", "TKN") {}
 
     /**
      * @dev Creates a listing by minting the token.
@@ -33,13 +24,14 @@ contract Tokenissimo is ERC721, ERC721Burnable {
      * @param metadata The IPFS CID where metadata is stored
      * @param collateral The collateral required as safe deposit.
      */
-    function mintIt(address receiver, string memory metadata, uint256 collateral) external returns (uint256) {
+    function mintIt(address receiver, string memory metadata, uint256 price, uint256 collateral) external returns (uint256) {
         _tokenIds.increment();
 
         uint256 tokenId = _tokenIds.current();
         _mint(receiver, tokenId); // use _safeMint?
         _setTokenURI(tokenId, metadata);
 
+        prices[tokenId] = price;
         collaterals[tokenId] = collateral;
 
         return tokenId;
@@ -67,11 +59,6 @@ contract Tokenissimo is ERC721, ERC721Burnable {
         require(_exists(tokenId), "Query for nonexistent token");
         require(tenants[tokenId] == address(0), "Already rented");
         require(addr != ownerOf(tokenId), "The landlord cannot rent their own property");
-        
-        if(collaterals[tokenId] > 0) {
-            require(weth.transferFrom(msg.sender, address(this), collaterals[tokenId]), "WETH Transfer failed!");
-            aaveLendingPool.deposit(address(weth), collaterals[tokenId], 0);
-        }
 
         tenants[tokenId] = addr;
     }
@@ -86,11 +73,6 @@ contract Tokenissimo is ERC721, ERC721Burnable {
         require(tenants[tokenId] != address(0), "Not rented");
         require(tenants[tokenId] == addr || ownerOf(tokenId) == addr, "Only the landlord or the tenant can void it");
 
-        if(collaterals[tokenId] > 0) {
-            aToken.redeem(collaterals[tokenId]);
-            require(weth.transferFrom(address(this), msg.sender, collaterals[tokenId]), "WETH Transfer failed!");
-        }
-
         delete tenants[tokenId];
     }
     
@@ -100,6 +82,14 @@ contract Tokenissimo is ERC721, ERC721Burnable {
      */
     function tokenCollateral(uint256 tokenId) external view returns(uint256) {        
         return collaterals[tokenId];
+    }
+
+    /**
+     * @dev Returns the price linked to the token.
+     * @param tokenId The id of the token. Must exist otherwise the transaction will fail.
+     */
+    function tokenPrice(uint256 tokenId) external view returns(uint256) {        
+        return prices[tokenId];
     }
     
     /**
@@ -119,23 +109,9 @@ contract Tokenissimo is ERC721, ERC721Burnable {
     }
 
     /**
-     * @dev Checks if a token id exists
-     * @param tokenId The id of the token.
-     */
-    function exists(uint256 tokenId) external view returns (bool) {
-        return _exists(tokenId);
-    }
-    
-    /**
      * @dev Returns the token counter.
      */
     function allTokens() external view returns (uint256) {
         return _tokenIds.current();
     }
-
-    // Function to receive Ether. msg.data must be empty
-    receive() external payable {}
-    
-    // Fallback function is called when msg.data is not empty
-    fallback() external payable {}
 }

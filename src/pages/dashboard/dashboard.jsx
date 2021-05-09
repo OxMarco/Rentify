@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const SuperfluidSDK = require("@superfluid-finance/js-sdk");
+
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -24,8 +26,33 @@ export default class Dashboard extends Component {
         this.setState({ tokens: t });
     }
 
-    remove(id) {
-        localStorage.clear();
+    remove(token) {
+        const all = await this.props.api.remove(token.id);
+    }
+
+    unrent(token) {
+
+        const sf = new SuperfluidSDK.Framework({
+            web3: this.props.web3,
+        });
+        await sf.initialize()
+
+        const owner = sf.user({
+            address: token.owner,
+            token: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947'
+        });
+
+        const tenant = sf.user({
+            address: token.tenant,
+            token: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947'
+        });
+
+        sf.cfa.deleteFlow({
+            superToken: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947',
+            sender: tenant,
+            receiver: owner,
+            by: this.state.address,
+        });
     }
 
     render() {
@@ -40,12 +67,26 @@ export default class Dashboard extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-4 py-2">
-                            { tokens && tokens.filter(token => token.tenant === address).map((token, i) =>
-                            <div className="card h-100 text-white bg-success" key={i}>
+                            { tokens && tokens.filter(token => token.tenant === address).map((token) =>
+                            <div className="card h-100 text-white bg-danger" key={token.id}>
                                 <div className="card-body">
                                     <h3 className="card-title">{token.title}</h3>
                                     <p className="card-text">{token.description}</p>
-                                    <a href="#" className="btn btn-outline-light">Stop</a>
+                                    <a href="#" onClick={() => this.unrent(token)} className="btn btn-outline-light">Stop</a>
+                                </div>
+                            </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-sm-4 py-2">
+                            { tokens && tokens.filter(token => token.owner === address).map((token) =>
+                            <div className="card h-100 text-white bg-success" key={token.id}>
+                                <div className="card-body">
+                                    <h3 className="card-title">{token.title}</h3>
+                                    <p className="card-text">{token.description}</p>
+                                    <a href="#" onClick={() => this.remove(token)} className="btn btn-outline-light">Remove</a>
                                 </div>
                             </div>
                             )}

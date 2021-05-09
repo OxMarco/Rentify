@@ -55,10 +55,6 @@ export default class Gallery extends Component {
         this.setState({redirect_param: id, redirect_url: 'info'});
     }
 
-    remove(id) {
-        localStorage.clear();
-    }
-
     render() {
         if (this.state.redirect_url) {
             return <Redirect to={this.state.redirect_url + '/' + this.state.redirect_param} />
@@ -93,9 +89,6 @@ export default class Gallery extends Component {
                                             <li>{token.surface} sqft</li>
                                         </ul>
                                         <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
-                                        {token.owner === this.state.address &&
-                                        <button type="button" className="btn btn-lg btn-block btn-outline-danger" onClick={() => this.remove(token.id)}>Remove</button>
-                                        }
                                     </div>
                                 </div>
                                 )}
