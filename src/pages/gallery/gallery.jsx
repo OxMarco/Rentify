@@ -26,15 +26,16 @@ export default class Gallery extends Component {
 
         console.info(all);
 
-        var t = [];
-        for(var i = 1; i <= all; i++) {
-            var temp = await this.props.api.get(i);
-            if(temp != null)
+        let t = [];
+        for(let i = 1; i <= all; i++) {
+            try {
+                const temp = await this.props.api.get(i);
                 t.push(temp);
+            } catch (e) {
+                console.log("Error");
+                console.log(e);
+            }
         }
-
-        console.info("Data:")
-        console.info(t);
 
         this.setState({ tokens: t });
     }
