@@ -9,7 +9,9 @@ export default class Api {
     }
 
     create(metadata, price, collateral) {
-        this.contract.methods.create(metadata, price, collateral).send({from: this.address})
+        this.contract.methods.create(metadata, price, collateral).send({from: this.address});
+
+        /*
             .on('transactionHash', function(hash) {
                 console.log('Transaction hash: ');
                 console.log(hash);
@@ -28,6 +30,7 @@ export default class Api {
                 console.log(error);
                 console.log(receipt);
             });
+            */
 
         return true;
     }
@@ -37,11 +40,7 @@ export default class Api {
     }
 
     async get(id) {
-        console.info("Api get")
-        console.info(id);
         let data = await this.contract.methods.get(id).call(); // 0 => metadata, 1 => price, 2 collateral, 3 => owner, 4 => tenant
-
-        console.info(data);
 
         var metadataCID = data[0];
         const res = await fetch(`https://ipfs.io/ipfs/${metadataCID}`);

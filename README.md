@@ -18,7 +18,7 @@
     Fluidify rental contracts in a decentralised way.
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://rentify.ens">View Demo</a>
     ·
     <a href="https://github.com/eth-teamx/Rentify/BUG-TEMPLATE.md">Report Bug</a>
     ·
@@ -124,7 +124,7 @@ To install the repository and run it locally:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Using *Rentify* is very simple, just head off the [Homepage]() and login with your Torus wallet. On the _rent_ page you can see a list of all properties to let and their location pinpointed on a map while on the _let_ page you can list your property and start earning. Once a new tenant accepts the rental agreement you will both receive a welcome email to exchange contacts and you're good to go.
+Using *Rentify* is very simple, just head off the [Homepage](https://rentify.ens) and login with your Torus wallet. On the _rent_ page you can see a list of all properties to let and their location pinpointed on a map while on the _let_ page you can list your property and start earning. Once a new tenant accepts the rental agreement you will both receive a welcome email to exchange contacts and you're good to go.
 In the _dashboard_ you can find all your properties to let and the ones you're currently renting and eventually stop the rental agreement once you want to leave the guest house.
 
 <!-- ROADMAP -->
@@ -151,7 +151,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Web Link: [Homepage]()
+Web Link: [Homepage](https://rentify.ens)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements

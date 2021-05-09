@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import DashboardHeader from '../../components/dashboard-header/dashboard-header';
 
 const SuperfluidSDK = require("@superfluid-finance/js-sdk");
 
@@ -14,7 +15,6 @@ export default class Dashboard extends Component {
     }
 
     async componentDidMount () {
-        console.log(this.state.userInfo)
         this.setState({ address: this.props.address });
 
         const all = await this.props.api.getAll();
@@ -25,8 +25,6 @@ export default class Dashboard extends Component {
                 const temp = await this.props.api.get(i);
                 t.push(temp);
             } catch (e) {
-                console.log("Error");
-                console.log(e);
             }
         }
 
@@ -69,17 +67,7 @@ export default class Dashboard extends Component {
 
         return (
             <>
-            <div className="image-cover page-title" style={{ backgroundImage: `url("https://kumarpreet.com/travlio-live/travlio/assets/img/banner.jpg")` }} data-overlay="6">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 col-md-12">
-                            
-                            <h2 className="ipt-title">Hello, {userInfo.name}</h2>
-                            <span className="ipn-subtitle text-light">Edit & View Your Properties</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <DashboardHeader userInfo={userInfo} />
             
             <section className="gray">
                 <div className="container-fluid">

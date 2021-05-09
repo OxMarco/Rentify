@@ -11,14 +11,14 @@ export default class Header extends Component {
                     <nav id="navigation" className="navigation navigation-landscape">
                         <div className="nav-header">
                             <Link className="nav-brand" to="/">
-                                <img src="https://kumarpreet.com/travlio-live/travlio/assets/img/logo.png" className="logo" alt="logo" />
+                                <img src="https://github.com/eth-teamx/Rentify/blob/master/images/logo.png?raw=true" className="logo" height="40" alt="logo" />
                             </Link>
                             <div className="nav-toggle"></div>
                         </div>
                         <div className="nav-menus-wrapper">
                             <ul className="nav-menu">
                                 
-                                <li className="active">
+                                <li className="">
                                     <Link to="/">Homepage</Link>
                                 </li>
                                 

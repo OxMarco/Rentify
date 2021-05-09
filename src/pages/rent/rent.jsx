@@ -31,8 +31,6 @@ export default class Rent extends Component {
                 const temp = await this.props.api.get(i);
                 t.push(temp);
             } catch (e) {
-                console.log("Error");
-                console.log(e);
             }
         }
 
@@ -40,14 +38,6 @@ export default class Rent extends Component {
     }
 
     geolocate() {
-        if(!this.props.isGeolocationAvailable ||  !this.props.isGeolocationEnabled)
-        {
-            console.log(this.props.coords)
-            this.setState({my_lat: 0, my_lng: 0});
-        } else {
-            console.log(this.props.coords)
-            this.setState({my_lat: 0, my_lng: 0});
-        }
     }
 
     viewDetails(id) {

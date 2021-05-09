@@ -20,7 +20,6 @@ export default class Home extends Component {
                 const item = await this.props.api.get(itemId);
                 items.push(item);
             } catch (e) {
-                console.log(e);
             }
         }
 
@@ -68,7 +67,8 @@ export default class Home extends Component {
                         {
                             this.state.properties &&
                             this.state.properties
-                                .filter(property => property.tenant === '0x0000000000000000000000000000000000000000' && property.owner != this.props.address)
+                                .filter(property => property.tenant === '0x0000000000000000000000000000000000000000')
+                                .slice(0,2)
                                 .map((property) =>
                             <div className="col-lg-4 col-md-6 col-sm-12" key={property.id}>
                                 <div className="tour-simple-wrap">

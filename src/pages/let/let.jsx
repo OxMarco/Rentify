@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import emailjs from 'emailjs-com';
 import SweetAlert from 'sweetalert2-react';
+import DashboardHeader from '../../components/dashboard-header/dashboard-header';
 
 export default class Let extends Component {
     constructor (props) {
@@ -48,7 +49,6 @@ export default class Let extends Component {
             progress: (prog) => console.log(prog),
         });
         const imageCID = image.path;
-        console.log(imageCID);
 
         this.setState({progress: 50});
 
@@ -66,15 +66,12 @@ export default class Let extends Component {
 
         const metadata = await this.props.ipfs.add(data);
         const metadataCID = metadata.path;
-        console.log("IPFS CID:", metadataCID);
 
         this.setState({progress: 75});
 
         await this.sendMail("..."); // TBD
 
-        console.log("Creating contract ...");
         const flag = await this.props.api.create(metadataCID, parseFloat(this.state.price), parseFloat(this.state.deposit));
-        console.log("done");
         if(!flag) alert('Error');
 
         this.setState({progress: 100, button_disabled: false, show: true });
@@ -88,7 +85,6 @@ export default class Let extends Component {
             id: data
         };
         var res = await emailjs.send('service_bi3gqt9', 'template_i3jg7ee', templateParams, 'user_df7doAY0vH3ifJMBgVXNG');
-        console.log(res);
     }
 
     handleChange = (e) => {
@@ -134,17 +130,8 @@ export default class Let extends Component {
                 text="You have successfully created a listing for this property!"
                 onConfirm={() => this.setState({ show: false, progress: 0 })}
             />
-            <div className="image-cover page-title" style={{ backgroundImage: `url("https://kumarpreet.com/travlio-live/travlio/assets/img/banner.jpg")` }} data-overlay="6">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 col-md-12">
-                            
-                            <h2 className="ipt-title">Hello, {userInfo.name}</h2>
-                            <span className="ipn-subtitle text-light">Edit & View Your Properties</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            <DashboardHeader userInfo={userInfo} />
             
             <section className="gray">
                 <div className="container-fluid">

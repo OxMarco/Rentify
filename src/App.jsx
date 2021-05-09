@@ -14,7 +14,6 @@ import Info from './pages/info/info';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Loader from './components/loader/loader';
-
 import Api from './components/api/api';
 
 export default class App extends React.PureComponent {

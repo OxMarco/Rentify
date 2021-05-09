@@ -20,8 +20,6 @@ export default class Info extends Component {
 
     async componentDidMount() {
         const id  = this.props.match.params.id;
-        console.log("ID")
-        console.log(id)
         var data = await this.props.api.get(id);
         this.setState({ token: data });
     }
@@ -37,11 +35,6 @@ export default class Info extends Component {
         const pricePerDayETH = pricePerDayUSD * usdEthRate;
         const pricePerDayWEI = this.props.web3.utils.toWei(pricePerDayETH.toFixed(18));
         const pricePerSecondWEI = toBN(pricePerDayWEI).div(new BN("24")).div(new BN("3600")).toNumber();
-
-        console.log("USD per day: " + pricePerDayUSD);
-        console.log("ETH per day: " + pricePerDayETH);
-        console.log("WEI per day: " + pricePerDayWEI);
-        console.log("WEI per second:" + pricePerSecondWEI);
 
         const sf = new SuperfluidSDK.Framework({
             web3: this.props.web3,
