@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { Link } from "react-router-dom";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import emailjs from 'emailjs-com';
 import SweetAlert from 'sweetalert2-react';
@@ -23,7 +24,8 @@ export default class Let extends Component {
             image: null,
             progress: 0,
             button_disabled: false,
-            show: false
+            show: false,
+            userInfo: this.props.userInfo
         };
     }
 
@@ -120,145 +122,129 @@ export default class Let extends Component {
                 deposit,
                 progress,
                 button_disabled,
-                show
+                show,
+                userInfo
             } = this.state;
 
         return (
         <>
-            <div className="container">
-                <div className="py-5 text-center">
-                    <h2 className="display-4">Let a Property</h2>
-                    <p className="lead">Create a listing for your property and start earning.</p>
-                </div>
-
-                <SweetAlert
-                    show={show}
-                    title="Success"
-                    text="You have successfully created a listing for this property!"
-                    onConfirm={() => this.setState({ show: false, progress: 0 })}
-                />
-
-                <div className="row">
-                    <div className="col">
-                        <h4 className="mb-3">Main Data</h4>
-                        <form className="needs-validation" onSubmit={this.handleFormSubmit}>
-
-                            <div className="mb-3">
-                                <label htmlFor="address">Address</label>
-                                <div className="input-group">
-                                    <input type="text" className="form-control" name="address" id="address" placeholder="John" min="2" max="255" value={address} onChange={this.handleChange} required />
-                                    <div className="invalid-feedback">
-                                        A valid address is required.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <div className="col-md-5 mb-3">
-                                    <label htmlFor="country">Country</label>
-                                    <CountryDropdown value={country} onChange={(val) => this.selectCountry(val)}
-                                    className="custom-select d-block w-100" name="country" id="country" required />
-                                    <div className="invalid-feedback">
-                                        Please select a valid country.
-                                    </div>
-                                </div>
-                                <div className="col-md-4 mb-3">
-                                    <label htmlFor="region">Region</label>
-                                    <RegionDropdown country={country} value={region} onChange={(val) => this.selectRegion(val)}
-                                    className="custom-select d-block w-100" name="region" id="region" required />
-                                    <div className="invalid-feedback">
-                                        Please provide a valid region.
-                                    </div>
-                                </div>
-                                <div className="col-md-3 mb-3">
-                                    <label htmlFor="zip">Zip</label>
-                                    <input type="text" className="form-control" name="zip" id="zip" placeholder="012..." value={zip} onChange={this.handleChange} required />
-                                    <div className="invalid-feedback">
-                                        Zip code required.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr className="mb-4" />
-
-                            <h4 className="mb-3">Other Data</h4>
-
-                            <div className="mb-3">
-                                <label htmlFor="title">Title</label>
-                                <input type="text" className="form-control" name="title" id="title" placeholder="A catchy title" min="3" max="100" value={title} onChange={this.handleChange} required />
-                                <div className="invalid-feedback">
-                                    Title is required
-                                </div>
-                            </div>
-
-                            <div className="mb-3">
-                                <label htmlFor="description">Description</label>
-                                <textarea className="form-control" name="description" id="description" placeholder="Tell us more about the property to let" min="10" max="500" spellCheck="true" value={description} onChange={this.handleChange} required></textarea>
-                                <div className="invalid-feedback">
-                                    Description is required
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <div className="col-md-5 mb-3">
-                                    <label htmlFor="surface">Surface</label>
-                                    <div className="input-group mb-3">
-                                        <input type="number" className="form-control" name="surface" id="surface" placeholder="10" value={surface} onChange={this.handleChange} required />
-                                        <div className="input-group-append">
-                                            <span className="input-group-text" id="basic-addon1">m2</span>
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Please select a valid number.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4 mb-3">
-                                    <label htmlFor="price">Price/day (USD)</label>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon2">$</span>
-                                        </div>
-                                        <input type="number" className="form-control" name="price" id="price" placeholder="850" min="1" max="10000" value={price} onChange={this.handleChange} required />
-                                        <div className="invalid-feedback">
-                                            Please provide a valid number.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 mb-3">
-                                    <label htmlFor="deposit">Deposit (USD)</label>
-                                    <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="basic-addon3">$</span>
-                                        </div>
-                                        <input type="number" className="form-control" name="deposit" id="deposit" placeholder="100" min="0" max="10000" value={deposit} onChange={this.handleChange} required />
-                                        <div className="invalid-feedback">
-                                            Please choose a valid option.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr className="mb-4" />
-
-                            <h4 className="mb-3">Media</h4>
-
-                            <div className="mb-3">
-                                <label htmlFor="image">Image</label>
-                                <input type="file" className="form-control-file" name="image" id="image" accept="image/*" onChange={this.handleFileChange} required />
-                                <div className="invalid-feedback">
-                                    Image is required
-                                </div>
-                            </div>
-                            <ProgressBar animated now={progress} />
-
-
-                            <hr className="mb-4" />
-                            <button className="btn btn-secondary btn-lg btn-block" type="submit" disabled={button_disabled}>Add to the List</button>
-                        </form>
+            <SweetAlert
+                show={show}
+                title="Success"
+                text="You have successfully created a listing for this property!"
+                onConfirm={() => this.setState({ show: false, progress: 0 })}
+            />
+            <div className="image-cover page-title" style={{ backgroundImage: `url("https://kumarpreet.com/travlio-live/travlio/assets/img/banner.jpg")` }} data-overlay="6">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12 col-md-12">
+                            
+                            <h2 className="ipt-title">Hello, {userInfo.name}</h2>
+                            <span className="ipn-subtitle text-light">Edit & View Your Properties</span>
+                        </div>
                     </div>
                 </div>
             </div>
-      </>
+            
+            <section className="gray">
+                <div className="container-fluid">
+                    <div className="row">
+                        
+                        <div className="col-lg-3 col-md-4 col-sm-12">
+                            <div className="dashboard-navbar">
+                                
+                                <div className="d-user-avater">
+                                    <img src={userInfo.profileImage} className="img-fluid avater" alt="profile image" />
+                                    <h4>{userInfo.name}</h4>
+                                    <span>Verified via {userInfo.verifier}</span>
+                                </div>
+                                
+                                <div className="d-navigation">
+                                    <ul>
+                                        <li><a href="#"><i className="fa fa-plus"></i>To Let</a></li>
+                                        <li><a href="#"><i className="fa fa-minus"></i>To Rent</a></li>
+                                        <li><Link to="/let"><i className="fa fa-edit"></i>Add New</Link></li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div className="col-lg-9 col-md-8 col-sm-12">
+                            <div className="dashboard-wrapers">
+                            
+                                <div className="form-submit">	
+                                    <h4>Create New Listing</h4>
+                                    <br />
+                                    <div className="submit-section">
+                                        <form className="form-row" onSubmit={this.handleFormSubmit}>
+
+                                            <div className="form-group col-md-6">
+                                                <label>Address</label>
+                                                <input type="text" className="form-control" name="address" id="address" placeholder="Hide Park..." min="2" max="255" value={address} onChange={this.handleChange} required />
+                                            </div>
+
+                                            <div className="form-group col-md-6">
+                                                <label>Zip</label>
+                                                <input type="text" className="form-control" name="zip" id="zip" placeholder="012..." value={zip} onChange={this.handleChange} required />
+                                            </div>
+                                            
+                                            <div className="form-group col-md-6">
+                                                <label>Country</label>
+                                                <CountryDropdown value={country} onChange={(val) => this.selectCountry(val)} className="custom-select d-block w-100" name="country" id="country" required />
+                                            </div>
+                                            
+                                            <div className="form-group col-md-6">
+                                                <label>Region</label>
+                                                <RegionDropdown country={country} value={region} onChange={(val) => this.selectRegion(val)} className="custom-select d-block w-100" name="region" id="region" required />
+                                            </div>
+
+                                            <div className="form-group col-md-12">
+                                                <label>Title</label>
+                                                <input type="text" className="form-control" name="title" id="title" placeholder="A catchy title" min="3" max="100" value={title} onChange={this.handleChange} required />
+                                            </div>
+                                            
+                                            <div className="form-group col-md-12">
+                                                <label>Description</label>
+                                                <textarea className="form-control" name="description" id="description" placeholder="Tell us more about the property to let" min="10" max="500" spellCheck="true" value={description} onChange={this.handleChange} required></textarea>
+                                            </div>
+                                            
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="surface">Surface (m2)</label>
+                                                <input type="number" className="form-control" name="surface" id="surface" placeholder="10" value={surface} onChange={this.handleChange} required />
+                                            </div>
+                                            
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="price">Price/day (USD)</label>
+                                                <input type="number" className="form-control" name="price" id="price" placeholder="850" min="1" max="10000" value={price} onChange={this.handleChange} required />
+                                            </div>
+                                            
+                                            <div className="form-group col-md-12">
+                                                <label htmlFor="deposit">Deposit (USD)</label>
+                                                <input type="number" className="form-control" name="deposit" id="deposit" placeholder="100" min="0" max="10000" value={deposit} onChange={this.handleChange} required />
+                                            </div>
+
+                                            <div className="form-group col-md-12">
+                                                <label>Image</label>
+                                                <input type="file" className="form-control-file" name="image" id="image" accept="image/*" onChange={this.handleFileChange} required />
+                                            </div>
+                                            <br />
+                                            <div className="form-group col-lg-12 col-md-12">
+                                                <button className="btn btn-theme" type="submit" disabled={button_disabled}>Add to the List</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                        
+                                <ProgressBar animated now={progress} />
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            </>
         );
     }
 }

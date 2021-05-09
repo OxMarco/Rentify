@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 const SuperfluidSDK = require("@superfluid-finance/js-sdk");
 
@@ -8,10 +9,12 @@ export default class Dashboard extends Component {
 
         this.state = {
             tokens: [],
+            userInfo: this.props.userInfo
         };
     }
 
     async componentDidMount () {
+        console.log(this.state.userInfo)
         this.setState({ address: this.props.address });
 
         const all = await this.props.api.getAll();
@@ -62,43 +65,113 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        const { tokens, address } = this.state;
+        const { tokens, address, userInfo } = this.state;
 
         return (
             <>
-                <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                    <h2 className="display-4">User Dashboard</h2>
-                    <p className="lead">Here you can see and manage your properties to let and your rented properties.</p>
-                </div>
+            <div className="image-cover page-title" style={{ backgroundImage: `url("https://kumarpreet.com/travlio-live/travlio/assets/img/banner.jpg")` }} data-overlay="6">
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-4 py-2">
-                            { tokens && tokens.filter(token => token.tenant === address).map((token) =>
-                            <div className="card h-100 text-white bg-danger" key={token.id}>
-                                <div className="card-body">
-                                    <h3 className="card-title">{token.title}</h3>
-                                    <p className="card-text">{token.description}</p>
-                                    <a href="#" onClick={() => this.unrent(token)} className="btn btn-outline-light">Stop</a>
-                                </div>
-                            </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-sm-4 py-2">
-                            { tokens && tokens.filter(token => token.owner === address).map((token) =>
-                            <div className="card h-100 text-white bg-success" key={token.id}>
-                                <div className="card-body">
-                                    <h3 className="card-title">{token.title}</h3>
-                                    <p className="card-text">{token.description}</p>
-                                    <a href="#" onClick={() => this.remove(token)} className="btn btn-outline-light">Remove</a>
-                                </div>
-                            </div>
-                            )}
+                        <div className="col-lg-12 col-md-12">
+                            
+                            <h2 className="ipt-title">Hello, {userInfo.name}</h2>
+                            <span className="ipn-subtitle text-light">Edit & View Your Properties</span>
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <section className="gray">
+                <div className="container-fluid">
+                    <div className="row">
+                        
+                        <div className="col-lg-3 col-md-4 col-sm-12">
+                            <div className="dashboard-navbar">
+                                
+                                <div className="d-user-avater">
+                                    <img src={userInfo.profileImage} className="img-fluid avater" alt="profile image" />
+                                    <h4>{userInfo.name}</h4>
+                                    <span>Verified via {userInfo.verifier}</span>
+                                </div>
+                                
+                                <div className="d-navigation">
+                                    <ul>
+                                        <li><a href="#"><i className="fa fa-plus"></i>To Let</a></li>
+                                        <li><a href="#"><i className="fa fa-minus"></i>To Rent</a></li>
+                                        <li><Link to="/let"><i className="fa fa-edit"></i>Add New</Link></li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div className="col-lg-9 col-md-8 col-sm-12">
+                            <div className="dashboard-wrapers">
+                            
+                                <div className="dashboard-gravity-list mt-0">
+                                    <h4>As Landlord</h4>
+                                    <ul>
+                                    { tokens && tokens.filter(token => token.landlord === address).map((token) =>
+                                        <li>
+                                            <div className="list-box-listing">
+                                                <div className="list-box-listing-img">
+                                                    <a href="#">
+                                                    <img src="assets/img/destination/des-2.jpg" alt="" />
+                                                    </a>
+                                                </div>
+                                                <div className="list-box-listing-content">
+                                                    <div className="inner">
+                                                        <h3><a href="#">{token.title}</a></h3>
+                                                        <span>{token.region}, {token.country}</span>
+                                                        <div className="star-rating">
+                                                            <div className="rating-counter">(10 reviews)</div>
+                                                        <span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star empty"></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="buttons-to-right">
+                                                <a href="#" className="button gray"><i className="fa fa-eye"></i> View</a>
+                                                <a href="#" onClick={() => this.remove(token)} className="button gray"><i className="fa fa-trash"></i> Delete</a>
+                                            </div>
+                                        </li>
+                                    )}
+                                    </ul>
+
+                                    <h4>As Tenant</h4>
+                                    <ul>
+                                    { tokens && tokens.filter(token => token.tenant === address).map((token) =>
+                                        <li>
+                                            <div className="list-box-listing">
+                                                <div className="list-box-listing-img">
+                                                    <a href="#">
+                                                    <img src="assets/img/destination/des-2.jpg" alt="" />
+                                                    </a>
+                                                </div>
+                                                <div className="list-box-listing-content">
+                                                    <div className="inner">
+                                                        <h3><a href="#">{token.title}</a></h3>
+                                                        <span>{token.region}, {token.country}</span>
+                                                        <div className="star-rating">
+                                                            <div className="rating-counter">(10 reviews)</div>
+                                                        <span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star empty"></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="buttons-to-right">
+                                                <a href="#" className="button gray"><i className="fa fa-eye"></i> View</a>
+                                                <a href="#" onClick={() => this.unrent(token)} className="button gray"><i className="fa fa-trash"></i> Stop Rent</a>
+                                            </div>
+                                        </li>
+                                    )}
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
             </>
         );
     }

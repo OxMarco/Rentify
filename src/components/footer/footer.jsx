@@ -15,7 +15,7 @@ export default class Footer extends Component {
                                     <img src="https://kumarpreet.com/travlio-live/travlio/assets/img/logo-light.png" className="img-footer" alt="" />
                                     <div className="footer-add">
                                         <p><strong>Email:</strong><br /><a href="mailto:hello@rentify.ens">hello@rentify.ens</a></p>
-                                        <p><strong>Contract Address:</strong><br /><a href="https://goerli.etherscan.io/address/0xEaD45163607196fC7aDEfB614D6556B9d392ADf2">0xEaD45163607196fC7aDEfB614D6556B9d392ADf2</a></p>
+                                        <p><strong>Contract Address:</strong><br /><a href="https://goerli.etherscan.io/address/0xEaD45163607196fC7aDEfB614D6556B9d392ADf2">goerli</a></p>
                                     </div>
                                     
                                 </div>

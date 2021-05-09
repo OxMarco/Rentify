@@ -116,7 +116,7 @@ export default class Rent extends Component {
                                 </div>
                             </div>
                         )}
-                                                    
+                    
                         </div>
                     
                         { tokens == [] && 
