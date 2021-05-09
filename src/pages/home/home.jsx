@@ -3,6 +3,30 @@ import Newsletter from '../../components/newsletter/newsletter';
 
 export default class Home extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            properties: [],
+        }
+    }
+
+    async componentDidMount() {
+        const itemsNumber = await this.props.api.getAll();
+
+        let items = [];
+        for (let itemId = 1; itemId <= itemsNumber; itemId++) {
+            try {
+                const item = await this.props.api.get(itemId);
+                items.push(item);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        this.setState({ properties: items });
+    }
+
     render() {
         return (
             <>
@@ -41,29 +65,35 @@ export default class Home extends Component {
                     
                     <div className="row">
                         
-                        <div className="col-lg-4 col-md-6 col-sm-12">
-                            <div className="tour-simple-wrap">
-                                <div className="tour-simple-thumb">
-                                    <a href="tour-detail.html"><img src="https://kumarpreet.com/travlio-live/travlio/assets/img/destination/des-2.jpg" className="img-fluid img-responsive" alt="" /></a>
-                                </div>
-                                <div className="tour-simple-caption">
-                                    <div className="ts-caption-left">
-                                        <h4 className="ts-title"><a href="tour-detail.html">Cologne, Germany</a></h4>
-                                        <span>5 Tour Package</span>
+                        {
+                            this.state.properties &&
+                            this.state.properties
+                                .filter(property => property.tenant === '0x0000000000000000000000000000000000000000' && property.owner != this.props.address)
+                                .map((property) =>
+                            <div className="col-lg-4 col-md-6 col-sm-12" key={property.id}>
+                                <div className="tour-simple-wrap">
+                                    <div className="tour-simple-thumb">
+                                        <a href="tour-detail.html"><img src="https://kumarpreet.com/travlio-live/travlio/assets/img/destination/des-2.jpg" className="img-fluid img-responsive" alt="" /></a>
                                     </div>
-                                    <div className="ts-caption-right">
-                                        <div className="ts-caption-rating">
-                                            <i className="fa fa-star filled"></i>
-                                            <i className="fa fa-star filled"></i>
-                                            <i className="fa fa-star filled"></i>
-                                            <i className="fa fa-star filled"></i>
-                                            <i className="fa fa-star"></i>
+                                    <div className="tour-simple-caption">
+                                        <div className="ts-caption-left">
+                                            <h4 className="ts-title"><a href="tour-detail.html">Cologne, Germany</a></h4>
+                                            <span>5 Tour Package</span>
                                         </div>
-                                        <h5 className="ts-price">$299.00</h5>
+                                        <div className="ts-caption-right">
+                                            <div className="ts-caption-rating">
+                                                <i className="fa fa-star filled"></i>
+                                                <i className="fa fa-star filled"></i>
+                                                <i className="fa fa-star filled"></i>
+                                                <i className="fa fa-star filled"></i>
+                                                <i className="fa fa-star"></i>
+                                            </div>
+                                            <h5 className="ts-price">$299.00</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                         
                     </div>
                 
