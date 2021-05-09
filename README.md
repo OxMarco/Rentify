@@ -56,7 +56,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Rentify Screen Shot][product-screenshot]](https://example.com)
+<img src="images/cover.png" alt="cover" width="600" height="335">
 
 One of the great things about holidays is to ease off your mind and enjoy your deserved free time without having to think about mundane practicalities. Sometimes, it is good to just pick a location and stay as much as you like without having to arrange everything beforehand.
 
