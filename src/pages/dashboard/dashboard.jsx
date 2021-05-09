@@ -99,12 +99,12 @@ export default class Dashboard extends Component {
                                 <div className="dashboard-gravity-list mt-0">
                                     <h4>As Landlord</h4>
                                     <ul>
-                                    { tokens && tokens.filter(token => token.landlord === address).map((token) =>
+                                    { tokens && tokens.filter(token => token.owner === address).map((token) =>
                                         <li>
                                             <div className="list-box-listing">
                                                 <div className="list-box-listing-img">
                                                     <a href="#">
-                                                    <img src="assets/img/destination/des-2.jpg" alt="" />
+                                                    <img src={token.image} alt="" />
                                                     </a>
                                                 </div>
                                                 <div className="list-box-listing-content">
