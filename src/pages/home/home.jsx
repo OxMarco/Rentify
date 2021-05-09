@@ -73,12 +73,12 @@ export default class Home extends Component {
                             <div className="col-lg-4 col-md-6 col-sm-12" key={property.id}>
                                 <div className="tour-simple-wrap">
                                     <div className="tour-simple-thumb">
-                                        <a href="tour-detail.html"><img src="https://kumarpreet.com/travlio-live/travlio/assets/img/destination/des-2.jpg" className="img-fluid img-responsive" alt="" /></a>
+                                        <a href="tour-detail.html"><img src={property.image} className="img-fluid img-responsive" alt="property image" /></a>
                                     </div>
                                     <div className="tour-simple-caption">
                                         <div className="ts-caption-left">
-                                            <h4 className="ts-title"><a href="tour-detail.html">Cologne, Germany</a></h4>
-                                            <span>5 Tour Package</span>
+                                            <h4 className="ts-title"><a href="tour-detail.html">{property.region}, {property.country}</a></h4>
+                                            <span>2 people, {property.surface} sqmt</span>
                                         </div>
                                         <div className="ts-caption-right">
                                             <div className="ts-caption-rating">
@@ -88,7 +88,7 @@ export default class Home extends Component {
                                                 <i className="fa fa-star filled"></i>
                                                 <i className="fa fa-star"></i>
                                             </div>
-                                            <h5 className="ts-price">$299.00</h5>
+                                            <h5 className="ts-price">${property.price}</h5>
                                         </div>
                                     </div>
                                 </div>

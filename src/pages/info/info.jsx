@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import SweetAlert from 'sweetalert2-react';
 import MapBox from '../../components/mapbox/mapbox';
-import './info.css';
-
 import { BN, toBN } from 'web3-utils';
 
 const SuperfluidSDK = require("@superfluid-finance/js-sdk");
@@ -75,121 +73,51 @@ export default class Info extends Component {
         }
 
         return (
-        <div className="container">
+            <>
             <SweetAlert
                 show={show}
                 title="Success"
                 text="You have successfully rented this property!"
                 onConfirm={() => this.setState({ show: false, redirect_url: 'dashboard' })}
             />
-            <div className="py-5 text-center">
-                <h2 className="display-4">Details</h2>
-                <p className="lead">Explore the guest house of your dreams.</p>
-            </div>
 
+            <div className="image-cover page-title" style={{ backgroundImage: `url("https://kumarpreet.com/travlio-live/travlio/assets/img/banner-5.jpg")` }} data-overlay="6">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12 col-md-12">
+                            
+                            <h2 className="ipt-title">About The Property</h2>
+                            <span className="ipn-subtitle text-light">Will it be your next destination?</span>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             { token && 
-            <>
-                <div className="row">
-                    <div className="col-md-6">
-                        <div id="slider" className="product-thumb">
-                            <div className="item">
-                                <img src={token.image} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="product-dtl">
-                            <div className="product-info">
-                                <div className="product-name">{token.title}</div>
-                                <div className="reviews-counter">
-                                    <div className="rate">
-                                        <input type="radio" id="star5" name="rate" value="5" />
-                                        <label htmlFor="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
-                                        <label htmlFor="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
-                                        <label htmlFor="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
-                                        <label htmlFor="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
-                                        <label htmlFor="star1" title="text">1 star</label>
-                                    </div>
-                                    <span>0 Reviews</span>
+                <>
+                    <section>
+                        <div className="container">
+                            <div className="row align-items-center">
+                                <div className="col-lg-6 col-md-6">
+                                    <img src={token.image} className="img-fluid" alt="property image" />
                                 </div>
-                                <div className="product-price-discount"><span>${token.price}</span><span className="line-through">/ day</span></div>
-                            </div>
-                            <div className="product-count">
-                                <a href="#" onClick={() => this.rent(token)} className="round-black-btn">Rent Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="product-info-tabs">
-                    <ul className="nav nav-tabs" id="myTab" role="tablist">
-                        <li className="nav-item">
-                            <a className="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews (0)</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="false">Map</a>
-                        </li>
-                    </ul>
-                    <div className="tab-content" id="myTabContent">
-                        <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                            {token.description}
-                        </div>
-                        <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                            <div className="review-heading">REVIEWS</div>
-                            <p className="mb-20">There are no reviews yet.</p>
-                            <form className="review-form">
-                                <div className="form-group">
-                                    <label>Your rating</label>
-                                    <div className="reviews-counter">
-                                        <div className="rate">
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label htmlFor="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label htmlFor="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label htmlFor="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label htmlFor="star2" title="text">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" />
-                                            <label htmlFor="star1" title="text">1 star</label>
-                                        </div>
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="story-wrap explore-content">
+                                        <span className="ipn-subtitle">{token.region}, {token.country}</span>
+                                        <h2>{token.title}</h2>
+                                        <p>{token.description}</p>
                                     </div>
                                 </div>
-                                <div className="form-group">
-                                    <label>Your message</label>
-                                    <textarea className="form-control" rows="10"></textarea>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <input type="text" name="" className="form-control" placeholder="Name*" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <input type="text" name="" className="form-control" placeholder="Email Id*" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <button className="round-black-btn">Submit Review</button>
-                            </form>
-                        </div>
-                        <div className="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
-                            <div className="row-fluid">
-                                <MapBox lat={token.latitude} lng={token.longitude} />
                             </div>
                         </div>
-                    </div>
-                </div>
-            </>
+                    </section>
+
+                    <button type="submit" onClick={() => this.rent(token)}  class="btn btn-primary block">Send Request</button>
+
+                </>
             }
-        </div>
+        </>
         );
     }
 }
