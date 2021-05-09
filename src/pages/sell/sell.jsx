@@ -60,7 +60,6 @@ export default class Sell extends Component {
             title: this.state.title,
             description: this.state.description,
             surface: parseFloat(this.state.surface),
-            price: parseFloat(this.state.price),
             image: imageCID,
         });
 
@@ -71,14 +70,9 @@ export default class Sell extends Component {
         this.setState({progress: 75});
 
         await this.sendMail("..."); // TBD
-    
-        const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
-        const priceRes = await apiRes.json();
-        const price_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.price).toString());
-        const deposit_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.deposit).toString());
 
         console.log("Creating contract ...");
-        const flag = await this.props.api.create(metadataCID, price_eth, deposit_eth);
+        const flag = await this.props.api.create(metadataCID, parseFloat(this.state.price), parseFloat(this.state.deposit));
         console.log("done");
         if(!flag) alert('Error');
 
