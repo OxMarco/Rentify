@@ -32,6 +32,7 @@ function Map({ latitude, longitude, markers }) {
 
     return isLoaded ? (
         <GoogleMap
+            id="map-main" 
             mapContainerStyle={containerStyle}
             center={center}
             zoom={10}

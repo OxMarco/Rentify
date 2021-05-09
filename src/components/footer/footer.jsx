@@ -2,51 +2,61 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 export default class Footer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            classProp: this.props.classProp
-        };
-    }
 
     render() {
-        const { classProp } = this.state;
-
         return (
-            <footer className={classProp}>
-                <div className='container'>
-                    <div className="row">
-                        <div className="col-12 col-md">
-                            <img className="mb-2" src="https://i.ibb.co/ZX6zXDC/house.png" alt="logo" width="50" height="50" />
-                            <small className="d-block mb-3 text-muted">Rentify</small>
+            <footer className="dark-footer skin-dark-footer">
+                <div>
+                    <div className="container">
+                        <div className="row">
+                            
+                            <div className="col-5">
+                                <div className="footer-widget">
+                                    <img src="https://kumarpreet.com/travlio-live/travlio/assets/img/logo-light.png" className="img-footer" alt="" />
+                                    <div className="footer-add">
+                                        <p><strong>Email:</strong><br /><a href="mailto:hello@rentify.ens">hello@rentify.ens</a></p>
+                                        <p><strong>Contract Address:</strong><br /><a href="https://goerli.etherscan.io/address/0xEaD45163607196fC7aDEfB614D6556B9d392ADf2">0xEaD45163607196fC7aDEfB614D6556B9d392ADf2</a></p>
+                                    </div>
+                                    
+                                </div>
+                            </div>		
+
+                            <div className="col">
+                                <div className="footer-widget">
+                                    <h4 className="widget-title">Navigation</h4>
+                                    <ul className="footer-menu">
+                                        <li><Link to="/">Homepage</Link></li>
+                                        <li><Link to="/dashboard">Dashboard</Link></li>
+                                        <li><Link to="/rent">Browse all properties</Link></li>
+                                        <li><Link to="/let">Rent a property</Link></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div className="col">
+                                <div className="footer-widget">
+                                    <h4 className="widget-title">Sponsors</h4>
+                                    <ul className="footer-menu">
+                                        <li><a href="https://superfluid.finance/">SuperFluid</a></li>
+                                        <li><a href="https://tor.us/">Torus</a></li>
+                                        <li><a href="https://aave.com/">Aave</a></li>
+                                        <li><a href="https://ipfs.io/">IPFS</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div className="col-6 col-md">
-                            <h5>Sponsors</h5>
-                            <ul className="list-unstyled text-small">
-                                <li><a className="text-muted" href="https://www.superfluid.finance/">Superfluid</a></li>
-                                <li><a className="text-muted" href="https://tor.us/">Torus</a></li>
-                                <li><a className="text-muted" href="https://aave.com/">Aave</a></li>
-                                <li><a className="text-muted" href="https://ipfs.io/">IPFS</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-6 col-md">
-                            <h5>Pages</h5>
-                            <ul className="list-unstyled text-small">
-                                <li><Link className="text-muted" to="/">Home</Link></li>
-                                <li><Link className="text-muted" to="/gallery">Gallery</Link></li>
-                                <li><Link className="text-muted" to="/sell">Sell</Link></li>
-                                <li><Link className="text-muted" to="/dashboard">Dashboard</Link></li>
-                            </ul>
-                        </div>
-                        <div className="col-6 col-md">
-                            <h5>Team</h5>
-                            <ul className="list-unstyled text-small">
-                                <li><a className="text-muted" href="https://github.com/matteougolotti">@matxzy</a></li>
-                                <li><a className="text-muted" href="https://github.com/grcasanova">@Rene</a></li>
-                                <li><a className="text-muted" href="https://github.com/">...</a></li>
-                                <li><a className="text-muted" href="https://github.com/">...</a></li>
-                            </ul>
+                    </div>
+                </div>
+                
+                <div className="footer-bottom">
+                    <div className="container">
+                        <div className="row align-items-center">
+                            
+                            <div className="col-lg-6 col-md-6">
+                                <p className="mb-0">Made for Scaling Ethereum Hack - April/May 2021</p>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

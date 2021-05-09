@@ -1,36 +1,75 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import './home.css';
+import Newsletter from '../../components/newsletter/newsletter';
 
 export default class Home extends Component {
 
     render() {
         return (
             <>
-                <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-                    <div className="col-md-5 p-lg-5 mx-auto my-5">
-                        <h1 className="display-4 font-weight-normal">Rentify</h1>
-                        <p className="lead font-weight-normal">Fluidify rental contracts in a decentralised way</p>
-                        <Link className="btn btn-outline-secondary" to="/gallery">Explore Opportunities</Link>
+            <div className="main-banner full" style={{ backgroundImage: `url(https://kumarpreet.com/travlio-live/travlio/assets/img/banner-5.jpg")` }} data-overlay="5">
+                <div className="container">
+                    <div className="col-md-12 col-sm-12">
+                    
+                        <div className="caption text-center cl-white mb-3">
+                            <span className="stylish">Just pick a location and pay day by day</span>
+                            <h1>Where will you live next?</h1>
+                        </div>
+                        
+                        <div className="faq-search">
+                            <form>
+                                <input name="search" className="form-control" placeholder="Type a city or location..." />
+                                <button type="submit"> <i className="fa-search theme-cl"></i> </button>
+                            </form>
+                        </div>
+                        
                     </div>
                 </div>
-
-                <div className="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-                    <div className="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                        <div className="my-3 py-3">
-                            <h2 className="display-5">For landlords</h2>
-                            <p className="lead">Submit an ad for free and let your property for crypto!</p>
+                <div className="shape-bottom" data-negative="true"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"> <path className="elementor-shape-fill" fill="#FFF" fillRule="evenodd" d="M720.99 0C960.78 0 1200.45 33.333 1440 100H0C240.872 33.333 481.202 0 720.99 0z"></path> </svg></div>
+            </div>
+            
+            <section className="pt-2 pb-5">
+                <div className="container">
+                
+                    <div className="row">
+                        <div className="col-lg-12 col-md-12">
+                            <div className="sec-heading center">
+                                <p>Popular Locations</p>
+                                <h2>Featured Houses</h2>
+                            </div>
                         </div>
-                        <div className="bg-light box-shadow mx-auto custom"></div>
                     </div>
-                    <div className="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-                        <div className="my-3 p-3">
-                            <h2 className="display-5">For tenants</h2>
-                            <p className="lead">Find a property you like, leave a deposit and pay rent as you go!</p>
+                    
+                    <div className="row">
+                        
+                        <div className="col-lg-4 col-md-6 col-sm-12">
+                            <div className="tour-simple-wrap">
+                                <div className="tour-simple-thumb">
+                                    <a href="tour-detail.html"><img src="https://kumarpreet.com/travlio-live/travlio/assets/img/destination/des-2.jpg" className="img-fluid img-responsive" alt="" /></a>
+                                </div>
+                                <div className="tour-simple-caption">
+                                    <div className="ts-caption-left">
+                                        <h4 className="ts-title"><a href="tour-detail.html">Cologne, Germany</a></h4>
+                                        <span>5 Tour Package</span>
+                                    </div>
+                                    <div className="ts-caption-right">
+                                        <div className="ts-caption-rating">
+                                            <i className="fa fa-star filled"></i>
+                                            <i className="fa fa-star filled"></i>
+                                            <i className="fa fa-star filled"></i>
+                                            <i className="fa fa-star filled"></i>
+                                            <i className="fa fa-star"></i>
+                                        </div>
+                                        <h5 className="ts-price">$299.00</h5>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="bg-dark box-shadow mx-auto custom"></div>
+                        
                     </div>
+                
                 </div>
+            </section>
+            <Newsletter />
             </>
         );
     }

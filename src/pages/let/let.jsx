@@ -3,9 +3,8 @@ import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import emailjs from 'emailjs-com';
 import SweetAlert from 'sweetalert2-react';
-import './sell.css';
 
-export default class Sell extends Component {
+export default class Let extends Component {
     constructor (props) {
         super(props);
 

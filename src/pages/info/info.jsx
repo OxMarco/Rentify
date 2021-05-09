@@ -29,8 +29,7 @@ export default class Info extends Component {
     }
 
     async rent(token) {
-        this.props.api.rent(token.id);
-return;
+        this.setState({ disabled: false });
 
         const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
         const rates = await apiRes.json();
@@ -63,7 +62,9 @@ return;
             flowRate: pricePerSecondWEI,
         });
 
-        this.setState({ show: true });
+        this.props.api.rent(token.id);
+
+        this.setState({ disabled: false, show: true });
     }
 
     render() {
@@ -79,7 +80,7 @@ return;
                 show={show}
                 title="Success"
                 text="You have successfully rented this property!"
-                onConfirm={() => this.setState({ show: false, redirect_url: 'gallery' })}
+                onConfirm={() => this.setState({ show: false, redirect_url: 'dashboard' })}
             />
             <div className="py-5 text-center">
                 <h2 className="display-4">Details</h2>

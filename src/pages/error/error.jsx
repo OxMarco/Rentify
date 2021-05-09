@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import Newsletter from '../../components/newsletter/newsletter';
 
 export default class Error extends Component {
 
     render() {
         return (
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="error-template">
-                            <h1>
-                                Oops!</h1>
-                            <h2>
-                                404 Not Found</h2>
-                            <div class="error-details">
-                                Sorry, an error has occured, Requested page not found!
-                            </div>
-                            <div class="error-actions">
-                                <a href="http://www.jquery2dotnet.com" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-                                    Take Me Home </a><a href="http://www.jquery2dotnet.com" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+            <>
+                <section class="error-wrap">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 col-md-10">
+                                <div class="text-center">
+                                    <img src="https://kumarpreet.com/travlio-live/travlio/assets/assets/img/404.png" class="img-fluid" alt="404" />
+                                    <Link class="btn btn-theme" to="/">Back To Home</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
+                <Newsletter />
+            </>
         );
     }
 }
