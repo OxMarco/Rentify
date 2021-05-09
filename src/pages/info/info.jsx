@@ -37,7 +37,7 @@ export default class Info extends Component {
         const pricePerDayUSD = token.price;
         const usdEthRate = rates["ETH"];
         const pricePerDayETH = pricePerDayUSD * usdEthRate;
-        const pricePerDayWEI = this.props.web3.utils.toWei(pricePerDayETH.toString());
+        const pricePerDayWEI = this.props.web3.utils.toWei(pricePerDayETH.toFixed(18));
         const pricePerSecondWEI = toBN(pricePerDayWEI).div(new BN("24")).div(new BN("3600")).toNumber();
 
         console.log("USD per day: " + pricePerDayUSD);
