@@ -5,6 +5,7 @@ import IpfsRouter from 'ipfs-react-router'
 import Torus from "@toruslabs/torus-embed";
 import Web3 from "web3";
 
+import Error from './pages/error/error';
 import Home from './pages/home/home';
 import Dashboard from './pages/dashboard/dashboard';
 import Gallery from './pages/gallery/gallery';
@@ -96,6 +97,7 @@ export default class App extends React.PureComponent {
                     <Route exact path="/dashboard" render={(props) => <Dashboard address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
                     <Route exact path="/info/:id" render={(props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
                     <Route exact path="/" render={(props) => <Home />} />
+                    <Route render={(props) => <Error />} />
                 </Switch>
                 <Footer classProp="pt-4 my-md-5 pt-md-5 border-top" />
                 </>
