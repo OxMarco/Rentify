@@ -74,10 +74,11 @@ export default class Sell extends Component {
     
         const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
         const priceRes = await apiRes.json();
-        const price_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.deposit).toString());
+        const price_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.price).toString());
+        const deposit_eth = this.props.web3.utils.toWei((priceRes['ETH'] * this.state.deposit).toString());
 
         console.log("Creating contract ...");
-        const flag = await this.props.api.create(metadataCID, price_eth);
+        const flag = await this.props.api.create(metadataCID, price_eth, deposit_eth);
         console.log("done");
         if(!flag) alert('Error');
 
