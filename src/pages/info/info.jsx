@@ -4,6 +4,8 @@ import SweetAlert from 'sweetalert2-react';
 import MapBox from '../../components/mapbox/mapbox';
 import './info.css';
 
+import { BN, toBN } from 'web3-utils';
+
 const SuperfluidSDK = require("@superfluid-finance/js-sdk");
 
 export default class Info extends Component {
@@ -31,8 +33,19 @@ export default class Info extends Component {
 return;
 
         const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
-        const priceRes = await apiRes.json();
-        const stream = this.props.web3.utils.toWei((priceRes['ETH'] * token.price).toPrecision(15).toString())/30/24/3600;
+        const rates = await apiRes.json();
+
+        const pricePerDayUSD = token.price;
+        const usdEthRate = rates["ETH"];
+        const pricePerDayETH = pricePerDayUSD * usdEthRate;
+        const pricePerDayWEI = this.props.web3.utils.toWei(pricePerDayETH.toString());
+        const pricePerSecondWEI = toBN(pricePerDayWEI).div(new BN("24")).div(new BN("3600")).toNumber();
+
+        console.log("USD per day: " + pricePerDayUSD);
+        console.log("ETH per day: " + pricePerDayETH);
+        console.log("WEI per day: " + pricePerDayWEI);
+        console.log("WEI per second:" + pricePerSecondWEI);
+
         const sf = new SuperfluidSDK.Framework({
             web3: this.props.web3,
         });
@@ -47,7 +60,7 @@ return;
 
         await sfUser.flow({
             recipient: token.owner,
-            flowRate: stream
+            flowRate: pricePerSecondWEI,
         });
 
         this.setState({ show: true });
