@@ -27,7 +27,7 @@ export default class Footer extends Component {
                                 <li><a className="text-muted" href="https://www.superfluid.finance/">Superfluid</a></li>
                                 <li><a className="text-muted" href="https://tor.us/">Torus</a></li>
                                 <li><a className="text-muted" href="https://aave.com/">Aave</a></li>
-                                <li><a className="text-muted" href="https://matic.network/">Matic</a></li>
+                                <li><a className="text-muted" href="https://ipfs.io/">IPFS</a></li>
                             </ul>
                         </div>
                         <div className="col-6 col-md">

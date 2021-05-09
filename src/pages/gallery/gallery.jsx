@@ -102,10 +102,8 @@ export default class Gallery extends Component {
 
                             </div>
                         </div>
-                        <div className="col-4">
-                            <Map latitude={this.state.my_lat} longitude={this.state.my_lng} markers={this.state.tokens} />
-                        </div>
                     </div>
+                    <Map latitude={this.state.my_lat} longitude={this.state.my_lng} markers={this.state.tokens} />
                 </div>
             </>
         );

@@ -58,16 +58,17 @@
 
 [![Rentify Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+One of the great things about holidays is to ease off your mind and enjoy your deserved free time without having to think about mundane practicalities. Sometimes, it is good to just pick a location and stay as much as you like without having to arrange everything beforehand.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
+That's why we have created *Rentify*. A decentralised platform that allows you to rent a property in a fluid way as we say, without any time limits just pay as you go on an hourly basis. The tenant can then enjoy a hassle-free rental experience while the landlord is paid continuously and is protected against accidental damage by a security deposit stored on the contract.
+By investing the security deposit, *Rentify* can be financially self sustainable without having to rely on fees, thus making the whole platform completely free of charge to its users.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+A few key features of the platform:
+* completely decentralised
+* privacy preserving
+* security by default
+* collateral deposit as insurance
+* pay as you go, no hidden fees
 
 ### Built With
 
@@ -76,17 +77,16 @@ To bring Rentify to life we integrated the following awesome projects:
 * [SuperFluid](https://www.superfluid.finance)
 * [Torus](https://tor.us)
 * [Aave](https://aave.com)
-* [Matic/Polygon](https://matic.network)
+* [IPFS](https://ipfs.io/)
 * And a sprinkle of *ReactJs*
 
-In particular, *SuperFluid* allows us to create dynamic cashflows, *Torus* acts as the main user wallet also providing email and username data, security deposits are invested into *Aave*'s lending pools to generate interests to keep the app alive (and free!) while the smart contracts themselves are deployed on *Matic/Polygon* L2 chain.
+In particular, *SuperFluid* allows us to create dynamic cashflows, *Torus* acts as the main user wallet also providing email and username data, security deposits are invested into *Aave*'s lending pools to generate interests to keep the app alive (and free!) while the data and images are stored on *IPFS*.
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Deploy a local copy of the project and test it yourself.
 
 ### Prerequisites
 
@@ -122,9 +122,8 @@ To install the repository and run it locally:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com/about)_
+Using *Rentify* is very simple, just head off the [Homepage]() and login with your Torus wallet. On the _rent_ page you can see a list of all properties to let and their location pinpointed on a map while on the _let_ page you can list your property and start earning. Once a new tenant accepts the rental agreement you will both receive a welcome email to exchange contacts and you're good to go.
+In the _dashboard_ you can find all your properties to let and the ones you're currently renting and eventually stop the rental agreement once you want to leave the guest house.
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -150,7 +149,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Web Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Web Link: [Homepage]()
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
