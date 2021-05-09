@@ -129,7 +129,7 @@ export default class Sell extends Component {
             <div className="container">
                 <div className="py-5 text-center">
                     <h2 className="display-4">Let a Property</h2>
-                    <p className="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+                    <p className="lead">Create a listing for your property and start earning.</p>
                 </div>
 
                 <SweetAlert

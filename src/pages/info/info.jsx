@@ -64,7 +64,7 @@ export default class Info extends Component {
             />
             <div className="py-5 text-center">
                 <h2 className="display-4">Details</h2>
-                <p className="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+                <p className="lead">Explore the guest house of your dreams.</p>
             </div>
 
             { token && 
@@ -98,7 +98,6 @@ export default class Info extends Component {
                                 </div>
                                 <div className="product-price-discount"><span>${token.price}</span><span className="line-through">/ day</span></div>
                             </div>
-                            <p>{token.description}</p>
                             <div className="product-count">
                                 <a href="#" onClick={() => this.rent(token.id)} className="round-black-btn">Rent Now</a>
                             </div>
