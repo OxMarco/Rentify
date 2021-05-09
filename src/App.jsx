@@ -95,8 +95,7 @@ export default class App extends React.PureComponent {
                     <Route exact path="/rent" render={(props) => <Rent address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
                     <Route exact path="/dashboard" render={(props) => <Dashboard address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
                     <Route exact path="/info/:id" render={(props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
-                    <Route exact path="/" render={(props) => <Home address={this.state.address} api={this.state.api} />} />
-                    <Route render={(props) => <Error />} />
+                    <Route render={(props) => <Home address={this.state.address} api={this.state.api} />} />
                 </Switch>
                 <Footer />
                 </>
