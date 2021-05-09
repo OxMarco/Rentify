@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "rentify",
+  "version": "1.0.0",
+  "private": false,
+  "homepage": "https://eth-teamx.github.io/Rentify",
   "dependencies": {
     "@ethersproject/contracts": "^5.1.1",
     "@openzeppelin/network": "^0.4.3",
