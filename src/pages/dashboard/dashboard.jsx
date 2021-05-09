@@ -128,17 +128,14 @@ export default class Dashboard extends Component {
                                         <li>
                                             <div className="list-box-listing">
                                                 <div className="list-box-listing-img">
-                                                    <a href="#">
-                                                    <img src="assets/img/destination/des-2.jpg" alt="" />
-                                                    </a>
+                                                    <Link to={"/info/"+token.id}>
+                                                        <img src={token.image} alt="property image" />
+                                                    </Link>
                                                 </div>
                                                 <div className="list-box-listing-content">
                                                     <div className="inner">
                                                         <h3><a href="#">{token.title}</a></h3>
                                                         <span>{token.region}, {token.country}</span>
-                                                        <div className="star-rating">
-                                                            <div className="rating-counter">(10 reviews)</div>
-                                                        <span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star empty"></span></div>
                                                     </div>
                                                 </div>
                                             </div>

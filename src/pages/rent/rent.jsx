@@ -8,8 +8,8 @@ export default class Rent extends Component {
 
         this.state = {
             redirect_url: '',
-            my_lat: 0,
-            my_lng: 0,
+            my_lat: 51.509865,
+            my_lng: -0.118092,
             address: '',
             tokens: []
         };
@@ -85,7 +85,7 @@ export default class Rent extends Component {
                             <div className="col-lg-6 col-md-12 col-sm-12" key={token.id}>
                                 <div className="tour-simple-wrap style-3">
                                     <div className="tour-simple-thumb">
-                                        <a href="tour-detail.html"><img src={token.image} className="img-fluid img-responsive" alt="property image" /></a>
+                                        <Link to={"/info/"+token.id}><img src={token.image} className="img-fluid img-responsive" alt="property image" /></Link>
                                     </div>
                                     <div className="tour-simple-caption">
                                         <div className="ts-caption-left">

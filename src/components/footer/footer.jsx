@@ -12,7 +12,7 @@ export default class Footer extends Component {
                             
                             <div className="col-5">
                                 <div className="footer-widget">
-                                    <img src="https://kumarpreet.com/travlio-live/travlio/assets/img/logo-light.png" className="img-footer" alt="" />
+                                    <img src="https://github.com/eth-teamx/Rentify/blob/master/images/logo.png?raw=true" height="65" className="img-footer" alt="logo" />
                                     <div className="footer-add">
                                         <p><strong>Email:</strong><br /><a href="mailto:hello@rentify.ens">hello@rentify.ens</a></p>
                                         <p><strong>Contract Address:</strong><br /><a href="https://goerli.etherscan.io/address/0xEaD45163607196fC7aDEfB614D6556B9d392ADf2">goerli</a></p>

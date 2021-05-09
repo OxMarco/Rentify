@@ -198,12 +198,12 @@ export default class Let extends Component {
                                             
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="surface">Surface (m2)</label>
-                                                <input type="number" className="form-control" name="surface" id="surface" placeholder="10" value={surface} onChange={this.handleChange} required />
+                                                <input type="number" className="form-control" name="surface" id="surface" placeholder="100" value={surface} onChange={this.handleChange} required />
                                             </div>
                                             
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="price">Price/day (USD)</label>
-                                                <input type="number" className="form-control" name="price" id="price" placeholder="850" min="1" max="10000" value={price} onChange={this.handleChange} required />
+                                                <input type="number" className="form-control" name="price" id="price" placeholder="45" min="1" max="10000" value={price} onChange={this.handleChange} required />
                                             </div>
                                             
                                             <div className="form-group col-md-12">

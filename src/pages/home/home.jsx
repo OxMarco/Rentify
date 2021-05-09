@@ -68,7 +68,7 @@ export default class Home extends Component {
                             this.state.properties &&
                             this.state.properties
                                 .filter(property => property.tenant === '0x0000000000000000000000000000000000000000')
-                                .slice(0,2)
+                                .slice(0,3)
                                 .map((property) =>
                             <div className="col-lg-4 col-md-6 col-sm-12" key={property.id}>
                                 <div className="tour-simple-wrap">
