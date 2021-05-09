@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.1480d0a9.chunk.css",
-    "main.js": "/static/js/main.f7f53c64.chunk.js",
-    "main.js.map": "/static/js/main.f7f53c64.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5b62249f.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5b62249f.js.map",
-    "static/css/2.19072978.chunk.css": "/static/css/2.19072978.chunk.css",
-    "static/js/2.78d8cd76.chunk.js": "/static/js/2.78d8cd76.chunk.js",
-    "static/js/2.78d8cd76.chunk.js.map": "/static/js/2.78d8cd76.chunk.js.map",
-    "static/js/3.dc29e76d.chunk.js": "/static/js/3.dc29e76d.chunk.js",
-    "static/js/3.dc29e76d.chunk.js.map": "/static/js/3.dc29e76d.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.19072978.chunk.css.map": "/static/css/2.19072978.chunk.css.map",
-    "static/css/main.1480d0a9.chunk.css.map": "/static/css/main.1480d0a9.chunk.css.map",
-    "static/js/2.78d8cd76.chunk.js.LICENSE.txt": "/static/js/2.78d8cd76.chunk.js.LICENSE.txt"
+    "main.css": "/Rentify/static/css/main.1480d0a9.chunk.css",
+    "main.js": "/Rentify/static/js/main.9166119d.chunk.js",
+    "main.js.map": "/Rentify/static/js/main.9166119d.chunk.js.map",
+    "runtime-main.js": "/Rentify/static/js/runtime-main.3fec091a.js",
+    "runtime-main.js.map": "/Rentify/static/js/runtime-main.3fec091a.js.map",
+    "static/css/2.19072978.chunk.css": "/Rentify/static/css/2.19072978.chunk.css",
+    "static/js/2.98aad411.chunk.js": "/Rentify/static/js/2.98aad411.chunk.js",
+    "static/js/2.98aad411.chunk.js.map": "/Rentify/static/js/2.98aad411.chunk.js.map",
+    "static/js/3.57d21c58.chunk.js": "/Rentify/static/js/3.57d21c58.chunk.js",
+    "static/js/3.57d21c58.chunk.js.map": "/Rentify/static/js/3.57d21c58.chunk.js.map",
+    "index.html": "/Rentify/index.html",
+    "static/css/2.19072978.chunk.css.map": "/Rentify/static/css/2.19072978.chunk.css.map",
+    "static/css/main.1480d0a9.chunk.css.map": "/Rentify/static/css/main.1480d0a9.chunk.css.map",
+    "static/js/2.98aad411.chunk.js.LICENSE.txt": "/Rentify/static/js/2.98aad411.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.5b62249f.js",
+    "static/js/runtime-main.3fec091a.js",
     "static/css/2.19072978.chunk.css",
-    "static/js/2.78d8cd76.chunk.js",
+    "static/js/2.98aad411.chunk.js",
     "static/css/main.1480d0a9.chunk.css",
-    "static/js/main.f7f53c64.chunk.js"
+    "static/js/main.9166119d.chunk.js"
   ]
 }
