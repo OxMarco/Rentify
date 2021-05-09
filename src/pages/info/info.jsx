@@ -26,7 +26,11 @@ export default class Info extends Component {
         this.setState({ token: data });
     }
 
-    async rent(id) {
+    async rent(token) {
+
+        const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
+        const priceRes = await apiRes.json();
+        const stream = this.props.web3.utils.toWei((priceRes['ETH'] * token.price).toPrecision(15).toString())/30/24/3600;
         const sf = new SuperfluidSDK.Framework({
             web3: this.props.web3,
         });
@@ -40,8 +44,8 @@ export default class Info extends Component {
         const details = await sfUser.details();
 
         await sfUser.flow({
-            recipient: this.token.owner,
-            flowRate: '1000'
+            recipient: token.owner,
+            flowRate: stream
         });
 
         this.setState({ show: true });
@@ -99,7 +103,7 @@ export default class Info extends Component {
                                 <div className="product-price-discount"><span>${token.price}</span><span className="line-through">/ day</span></div>
                             </div>
                             <div className="product-count">
-                                <a href="#" onClick={() => this.rent(token.id)} className="round-black-btn">Rent Now</a>
+                                <a href="#" onClick={() => this.rent(token)} className="round-black-btn">Rent Now</a>
                             </div>
                         </div>
                     </div>
