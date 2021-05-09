@@ -74,20 +74,15 @@ export default class Gallery extends Component {
                             <div className="card-deck mb-3 text-center">
 
                                 { this.state.tokens && this.state.tokens.filter(token => token.tenant === '0x0000000000000000000000000000000000000000').map((token) =>
-                                <div className="card mb-4 box-shadow" key={token.id}>
-                                    <div className="card-header">
-                                        <h4 className="my-0 font-weight-normal">Guest House</h4>
+                                    <div class="card box-shadow" key={token.id}>
+                                        <img src={token.image} className="card-img-top" alt="the property" />
+                                        <div class="card-body">
+                                            <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ day</small></h1>
+                                            <h5 class="card-title">{token.title}</h5>
+                                            <p class="card-text">{token.region}, {token.country}</p>
+                                            <a href="#" class="btn btn-primary" onClick={() => this.viewDetails(token.id)}>View More</a>
+                                        </div>
                                     </div>
-                                    <img src={token.image} className="card-img-top" alt="the property" />
-                                    <div className="card-body">
-                                        <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ day</small></h1>
-                                        <ul className="list-unstyled mt-3 mb-4">
-                                            <li>{token.title}</li>
-                                            <li>{token.region}, {token.country}</li>
-                                        </ul>
-                                        <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
-                                    </div>
-                                </div>
                                 )}
 
                             </div>

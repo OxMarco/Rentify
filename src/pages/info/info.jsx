@@ -27,6 +27,8 @@ export default class Info extends Component {
     }
 
     async rent(token) {
+        this.props.api.rent(token.id);
+return;
 
         const apiRes = await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=ETH');
         const priceRes = await apiRes.json();

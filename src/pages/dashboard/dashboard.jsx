@@ -57,6 +57,8 @@ export default class Dashboard extends Component {
             receiver: owner,
             by: this.state.address,
         });
+
+        this.props.api.leave(token.id);
     }
 
     render() {

@@ -8,7 +8,7 @@ export default class Api {
         this.contract.setProvider(this.web3.currentProvider)
     }
 
-    async create(metadata, price, collateral) {
+    create(metadata, price, collateral) {
         this.contract.methods.create(metadata, price, collateral).send({from: this.address})
             .on('transactionHash', function(hash) {
                 console.log('Transaction hash: ');
@@ -74,7 +74,15 @@ export default class Api {
         return metadata;
     }
 
-    async remove(tokenId) {
+    remove(tokenId) {
         return this.contract.methods.remove(tokenId).send({from: this.address});
+    }
+
+    rent(tokenId) {
+        return this.contract.methods.startRent(tokenId).send({from: this.address});
+    }
+
+    leave(tokenId) {
+        return this.contract.methods.stopRent(tokenId).send({from: this.address});
     }
 }
