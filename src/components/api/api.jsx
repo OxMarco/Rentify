@@ -29,7 +29,6 @@ export default class Api {
                 console.log(receipt);
             });
 
-
         return true;
     }
 
@@ -76,6 +75,6 @@ export default class Api {
     }
 
     async remove(tokenId) {
-        return await this.contract.methods.remove(tokenId).send();
+        return this.contract.methods.remove(tokenId).send({from: this.address});
     }
 }

@@ -65,7 +65,7 @@ export default class Gallery extends Component {
             <>
                 <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                     <h2 className="display-4">Rent a Property</h2>
-                    <p className="lead">Find a suitable guest house for your </p>
+                    <p className="lead">Find a suitable guest house for your next holiday in a dream location.</p>
                 </div>
 
                 <div className="container">

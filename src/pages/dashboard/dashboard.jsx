@@ -17,10 +17,14 @@ export default class Dashboard extends Component {
         const all = await this.props.api.getAll();
 
         var t = [];
-        for(var i = 1; i <= all; i++) {
-            var temp = await this.props.api.get(i);
-            if(temp != null)
+        for(let i = 1; i <= all; i++) {
+            try {
+                const temp = await this.props.api.get(i);
                 t.push(temp);
+            } catch (e) {
+                console.log("Error");
+                console.log(e);
+            }
         }
 
         this.setState({ tokens: t });
