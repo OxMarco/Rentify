@@ -39,7 +39,7 @@ export default class App extends React.PureComponent {
             enableLogging: false,
         });
         await torus.setProvider({
-            host: 'kovan',
+            host: 'goerli',
         });
 
         await torus.login();

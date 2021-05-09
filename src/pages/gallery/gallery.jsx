@@ -64,7 +64,7 @@ export default class Gallery extends Component {
             <>
                 <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                     <h2 className="display-4">Rent a Property</h2>
-                    <p className="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+                    <p className="lead">Find a suitable guest house for your </p>
                 </div>
 
                 <div className="container">
@@ -75,18 +75,14 @@ export default class Gallery extends Component {
                                 { this.state.tokens && this.state.tokens.filter(token => token.tenant === '0x0000000000000000000000000000000000000000').map((token) =>
                                 <div className="card mb-4 box-shadow" key={token.id}>
                                     <div className="card-header">
-                                        <h4 className="my-0 font-weight-normal">Free</h4>
+                                        <h4 className="my-0 font-weight-normal">Guest House</h4>
                                     </div>
                                     <img src={token.image} className="card-img-top" alt="the property" />
                                     <div className="card-body">
                                         <h1 className="card-title pricing-card-title">${token.price} <small className="text-muted">/ day</small></h1>
-                                        <h6 className="card-subtitle mb-2 text-muted">{token.title}</h6>
                                         <ul className="list-unstyled mt-3 mb-4">
-                                            <li>{token.description}</li>
-                                            <li>{token.country}</li>
-                                            <li>{token.region}</li>
-                                            <li>{token.zip}</li>
-                                            <li>{token.surface} sqft</li>
+                                            <li>{token.title}</li>
+                                            <li>{token.region}, {token.country}</li>
                                         </ul>
                                         <button type="button" className="btn btn-lg btn-block btn-outline-primary" onClick={() => this.viewDetails(token.id)}>View More</button>
                                     </div>

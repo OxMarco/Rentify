@@ -13,8 +13,6 @@ contract Rentify {
     }
     
     function create(string memory metadata, uint256 price, uint256 collateral) public returns (uint256) {
-        require(bytes(metadata).length >= 0, "Not a valid CID"); // a IPFS CID is 46 chars long
-        
         return _tokenFactory.mintIt(msg.sender, metadata, price, collateral);
     }
     

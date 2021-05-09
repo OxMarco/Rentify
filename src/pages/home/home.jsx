@@ -10,7 +10,7 @@ export default class Home extends Component {
                 <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
                     <div className="col-md-5 p-lg-5 mx-auto my-5">
                         <h1 className="display-4 font-weight-normal">Rentify</h1>
-                        <p className="lead font-weight-normal">Decentralized short term lettings</p>
+                        <p className="lead font-weight-normal">Fluidify rental contracts in a decentralised way</p>
                         <Link className="btn btn-outline-secondary" to="/gallery">Explore Opportunities</Link>
                     </div>
                 </div>
