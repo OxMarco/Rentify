@@ -100,13 +100,12 @@ export default class Info extends Component {
                                         <span className="ipn-subtitle">{token.region}, {token.country}</span>
                                         <h2>{token.title}</h2>
                                         <p>{token.description}</p>
+                                        <button type="submit" onClick={() => this.rent(token)}  class="btn btn-primary block">Send Request</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-
-                    <button type="submit" onClick={() => this.rent(token)}  class="btn btn-primary block">Send Request</button>
 
                 </>
             }
