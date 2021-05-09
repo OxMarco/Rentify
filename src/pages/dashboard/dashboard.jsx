@@ -103,22 +103,19 @@ export default class Dashboard extends Component {
                                         <li>
                                             <div className="list-box-listing">
                                                 <div className="list-box-listing-img">
-                                                    <a href="#">
-                                                    <img src={token.image} alt="" />
-                                                    </a>
+                                                    <Link to={"/info/"+token.id}>
+                                                        <img src={token.image} alt="property image" />
+                                                    </Link>
                                                 </div>
                                                 <div className="list-box-listing-content">
                                                     <div className="inner">
                                                         <h3><a href="#">{token.title}</a></h3>
                                                         <span>{token.region}, {token.country}</span>
-                                                        <div className="star-rating">
-                                                            <div className="rating-counter">(10 reviews)</div>
-                                                        <span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star"></span><span className="fa fa-star empty"></span></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="buttons-to-right">
-                                                <a href="#" className="button gray"><i className="fa fa-eye"></i> View</a>
+                                                <Link to={"/info/"+token.id} className="button gray"><i className="fa fa-eye"></i> View</Link>&nbsp;
                                                 <a href="#" onClick={() => this.remove(token)} className="button gray"><i className="fa fa-trash"></i> Delete</a>
                                             </div>
                                         </li>
