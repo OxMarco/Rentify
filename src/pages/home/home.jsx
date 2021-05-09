@@ -6,7 +6,7 @@ export default class Home extends Component {
     render() {
         return (
             <>
-            <div className="main-banner full" style={{ backgroundImage: `url(https://kumarpreet.com/travlio-live/travlio/assets/img/banner-5.jpg")` }} data-overlay="5">
+            <div className="main-banner full" style={{ backgroundImage: `url("https://kumarpreet.com/travlio-live/travlio/assets/img/banner-5.jpg")` }} data-overlay="5">
                 <div className="container">
                     <div className="col-md-12 col-sm-12">
                     
@@ -18,7 +18,7 @@ export default class Home extends Component {
                         <div className="faq-search">
                             <form>
                                 <input name="search" className="form-control" placeholder="Type a city or location..." />
-                                <button type="submit"> <i className="fa-search theme-cl"></i> </button>
+                                <button type="submit"> <i className="fa fa-search theme-cl"></i> </button>
                             </form>
                         </div>
                         

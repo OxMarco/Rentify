@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
 import MapBox from '../../components/mapbox/mapbox';
-import { geolocated } from "react-geolocated";
 
 export default class Rent extends Component {
     constructor(props) {
@@ -106,15 +105,12 @@ export default class Rent extends Component {
                                             </div>
                                             <h4 className="ts-title"><Link to={"/info/"+token.id}>{token.title}</Link></h4>
                                         </div>
-                                        <div className="ts-caption-right">
-                                            <h5 className="ts-price theme-cl">${token.price}</h5>
-                                        </div>
                                     </div>
                                     <div className="tour-simple-footer">
                                         <ul>
                                             <li><i className="fa fa-ruler-combined"></i>{token.surface} sqmt</li>
-                                            <li><i className="fa fa-coins"></i>${token.deposit} deposit</li>
-                                            <li><i className="fa fa-map"></i>{token.country}</li>
+                                            <li><i className="fa fa-coins"></i>${token.price}/day</li>
+                                            <li><i className="fa fa-wallet"></i>${token.deposit} deposit</li>
                                         </ul>
                                     </div>
                                 </div>
