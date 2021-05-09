@@ -26,11 +26,11 @@ export default class Dashboard extends Component {
         this.setState({ tokens: t });
     }
 
-    remove(token) {
+    async remove(token) {
         const all = await this.props.api.remove(token.id);
     }
 
-    unrent(token) {
+    async unrent(token) {
 
         const sf = new SuperfluidSDK.Framework({
             web3: this.props.web3,
