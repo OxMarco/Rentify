@@ -12,7 +12,7 @@ export default class Error extends Component {
                         <div className="row justify-content-center">
                             <div className="col-lg-6 col-md-10">
                                 <div className="text-center">
-                                    <img src="https://kumarpreet.com/travlio-live/travlio/assets/assets/img/404.png" className="img-fluid" alt="404" />
+                                    <img src="https://kumarpreet.com/travlio-live/travlio/assets/img/404.png" className="img-fluid" alt="404" />
                                     <Link className="btn btn-theme" to="/">Back To Home</Link>
                                 </div>
                             </div>

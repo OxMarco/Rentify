@@ -9,8 +9,8 @@ export default class Newsletter extends Component {
                 <div className="row">
                     <div className="col-lg-6 col-md-6">
                         <div className="jobalert-sec">
-                            <h3 className="mb-1 text-light">Get New Jobs Notification!</h3>
-                            <p className="text-light">Subscribe & get all related jobs notification.</p>
+                            <h3 className="mb-1 text-light">Get New Properties Notification!</h3>
+                            <p className="text-light">Subscribe & get all new properties notification.</p>
                         </div>
                     </div>
                     
