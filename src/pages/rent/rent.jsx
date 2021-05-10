@@ -16,8 +16,7 @@ export default class Rent extends Component {
     }
 
     async componentDidMount () {
-        console.info("Did mount");
-        console.info("Has logged in");
+        this.props.tracker.pageVisited('let');
 
         this.setState({ address: this.props.address });
 
@@ -81,11 +80,11 @@ export default class Rent extends Component {
                             
                         <div className="row m-0">
                         
-                        { tokens && tokens.filter(token => token.tenant === '0x0000000000000000000000000000000000000000' && token.owner != address).map((token) =>
+                        { tokens && tokens.filter(token => token.tenant === '0x0000000000000000000000000000000000000000' && token.owner !== address).map((token) =>
                             <div className="col-lg-6 col-md-12 col-sm-12" key={token.id}>
                                 <div className="tour-simple-wrap style-3">
                                     <div className="tour-simple-thumb">
-                                        <Link to={"/info/"+token.id}><img src={token.image} className="img-fluid img-responsive" alt="property image" /></Link>
+                                        <Link to={"/info/"+token.id}><img src={token.image} className="img-fluid img-responsive" alt="property" /></Link>
                                     </div>
                                     <div className="tour-simple-caption">
                                         <div className="ts-caption-left">
@@ -109,7 +108,7 @@ export default class Rent extends Component {
                     
                         </div>
                     
-                        { tokens == [] && 
+                        { tokens === [] && 
                         <div className="row">
                             <div className="col-md-12 col-sm-12 mt-3">
                                 <div className="text-center">

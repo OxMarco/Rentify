@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import IpfsHttpClient from 'ipfs-http-client';
 import IpfsRouter from 'ipfs-react-router'
 import Torus from "@toruslabs/torus-embed";
 import Web3 from "web3";
 
-import Error from './pages/error/error';
 import Home from './pages/home/home';
 import Dashboard from './pages/dashboard/dashboard';
 import Rent from './pages/rent/rent';
@@ -15,12 +14,14 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Loader from './components/loader/loader';
 import Api from './components/api/api';
+import Tracker from './components/tracker/tracker';
 
 export default class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
+            tracker: new Tracker(),
             userInfo: '',
             address: '',
             web3: null,
@@ -91,11 +92,11 @@ export default class App extends React.PureComponent {
                 <>
                 <Header />
                 <Switch>
-                    <Route exact path="/let" render={(props) => <Let address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
-                    <Route exact path="/rent" render={(props) => <Rent address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
-                    <Route exact path="/dashboard" render={(props) => <Dashboard address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
-                    <Route exact path="/info/:id" render={(props) => <Info address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
-                    <Route render={(props) => <Home address={this.state.address} api={this.state.api} />} />
+                    <Route exact path="/let" render={(props) => <Let tracker={this.state.tracker} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
+                    <Route exact path="/rent" render={(props) => <Rent tracker={this.state.tracker} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} ipfs={this.state.ipfs} {...props} />} />
+                    <Route exact path="/dashboard" render={(props) => <Dashboard tracker={this.state.tracker} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
+                    <Route exact path="/info/:id" render={(props) => <Info tracker={this.state.tracker} address={this.state.address} web3={this.state.web3} api={this.state.api} userInfo={this.state.userInfo} {...props} />} />
+                    <Route render={(props) => <Home tracker={this.state.tracker} address={this.state.address} api={this.state.api} />} />
                 </Switch>
                 <Footer />
                 </>

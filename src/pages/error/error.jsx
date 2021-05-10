@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Newsletter from '../../components/newsletter/newsletter';
 
 export default class Error extends Component {
-
     render() {
         return (
             <>

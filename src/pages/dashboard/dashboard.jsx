@@ -15,6 +15,8 @@ export default class Dashboard extends Component {
     }
 
     async componentDidMount () {
+        this.props.tracker.pageVisited('dashboard');
+
         this.setState({ address: this.props.address });
 
         const all = await this.props.api.getAll();
@@ -32,7 +34,7 @@ export default class Dashboard extends Component {
     }
 
     async remove(token) {
-        const all = await this.props.api.remove(token.id);
+        await this.props.api.remove(token.id);
     }
 
     async unrent(token) {
@@ -77,15 +79,15 @@ export default class Dashboard extends Component {
                             <div className="dashboard-navbar">
                                 
                                 <div className="d-user-avater">
-                                    <img src={userInfo.profileImage} className="img-fluid avater" alt="profile image" />
+                                    <img src={userInfo.profileImage} className="img-fluid avater" alt="profile" />
                                     <h4>{userInfo.name}</h4>
                                     <span>Verified via {userInfo.verifier}</span>
                                 </div>
                                 
                                 <div className="d-navigation">
                                     <ul>
-                                        <li><a href="#"><i className="fa fa-plus"></i>To Let</a></li>
-                                        <li><a href="#"><i className="fa fa-minus"></i>To Rent</a></li>
+                                        <li><a href="#let"><i className="fa fa-plus"></i>To Let</a></li>
+                                        <li><a href="#rent"><i className="fa fa-minus"></i>To Rent</a></li>
                                         <li><Link to="/let"><i className="fa fa-edit"></i>Add New</Link></li>
                                     </ul>
                                 </div>
@@ -97,14 +99,14 @@ export default class Dashboard extends Component {
                             <div className="dashboard-wrapers">
                             
                                 <div className="dashboard-gravity-list mt-0">
-                                    <h4>As Landlord</h4>
+                                    <h4 id="let">As Landlord</h4>
                                     <ul>
                                     { tokens && tokens.filter(token => token.owner === address).map((token) =>
                                         <li>
                                             <div className="list-box-listing">
                                                 <div className="list-box-listing-img">
                                                     <Link to={"/info/"+token.id}>
-                                                        <img src={token.image} alt="property image" />
+                                                        <img src={token.image} alt="property" />
                                                     </Link>
                                                 </div>
                                                 <div className="list-box-listing-content">
@@ -122,7 +124,7 @@ export default class Dashboard extends Component {
                                     )}
                                     </ul>
 
-                                    <h4>As Tenant</h4>
+                                    <h4 id="rent">As Tenant</h4>
                                     <ul>
                                     { tokens && tokens.filter(token => token.tenant === address).map((token) =>
                                         <li>

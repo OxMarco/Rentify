@@ -19,6 +19,8 @@ export default class Info extends Component {
     }
 
     async componentDidMount() {
+        this.props.tracker.pageVisited('info');
+
         const id  = this.props.match.params.id;
         var data = await this.props.api.get(id);
         this.setState({ token: data });
@@ -46,7 +48,7 @@ export default class Info extends Component {
             token: '0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947'
         });
 
-        const details = await sfUser.details();
+        //const details = await sfUser.details();
 
         await sfUser.flow({
             recipient: token.owner,
@@ -93,7 +95,7 @@ export default class Info extends Component {
                         <div className="container">
                             <div className="row align-items-center">
                                 <div className="col-lg-6 col-md-6">
-                                    <img src={token.image} className="img-fluid" alt="property image" />
+                                    <img src={token.image} className="img-fluid" alt="property" />
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="story-wrap explore-content">

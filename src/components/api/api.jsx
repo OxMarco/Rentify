@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import ABI from '../../abi.json';
 
 export default class Api {
@@ -55,14 +56,14 @@ export default class Api {
 
         const metadata = {
             id: id,
-            latitude: response['latitude'],
-            longitude: response['longitude'],
-            country: response['country'],
-            region: response['region'],
-            zip: response['zip'],
-            title: response['title'],
-            description: response['description'],
-            surface: response['surface'],
+            latitude: sanitizeHtml(response['latitude']),
+            longitude: sanitizeHtml(response['longitude']),
+            country: sanitizeHtml(response['country']),
+            region: sanitizeHtml(response['region']),
+            zip: sanitizeHtml(response['zip']),
+            title: sanitizeHtml(response['title']),
+            description: sanitizeHtml(response['description']),
+            surface: sanitizeHtml(response['surface']),
             price: data[1],
             deposit: data[2],
             image: `https://ipfs.io/ipfs/${response['image']}`,

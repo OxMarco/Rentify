@@ -30,6 +30,10 @@ export default class Let extends Component {
         };
     }
 
+    componendDidMount() {
+        this.props.tracker.pageVisited('let');
+    }
+
     handleFormSubmit = async (e) => {
         e.preventDefault();
 
@@ -84,7 +88,7 @@ export default class Let extends Component {
             to: this.props.userInfo['email'],
             id: data
         };
-        var res = await emailjs.send('service_bi3gqt9', 'template_i3jg7ee', templateParams, 'user_df7doAY0vH3ifJMBgVXNG');
+        await emailjs.send('service_bi3gqt9', 'template_i3jg7ee', templateParams, 'user_df7doAY0vH3ifJMBgVXNG');
     }
 
     handleChange = (e) => {
@@ -141,7 +145,7 @@ export default class Let extends Component {
                             <div className="dashboard-navbar">
                                 
                                 <div className="d-user-avater">
-                                    <img src={userInfo.profileImage} className="img-fluid avater" alt="profile image" />
+                                    <img src={userInfo.profileImage} className="img-fluid avater" alt="profile" />
                                     <h4>{userInfo.name}</h4>
                                     <span>Verified via {userInfo.verifier}</span>
                                 </div>

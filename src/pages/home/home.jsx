@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import Newsletter from '../../components/newsletter/newsletter';
 
 export default class Home extends Component {
@@ -12,6 +13,8 @@ export default class Home extends Component {
     }
 
     async componentDidMount() {
+        this.props.tracker.pageVisited('home');
+
         const itemsNumber = await this.props.api.getAll();
 
         let items = [];
@@ -73,11 +76,11 @@ export default class Home extends Component {
                             <div className="col-lg-4 col-md-6 col-sm-12" key={property.id}>
                                 <div className="tour-simple-wrap">
                                     <div className="tour-simple-thumb">
-                                        <a href="tour-detail.html"><img src={property.image} className="img-fluid img-responsive" alt="property image" /></a>
+                                        <a href="#"><img src={property.image} className="img-fluid img-responsive" alt="property" /></a>
                                     </div>
                                     <div className="tour-simple-caption">
                                         <div className="ts-caption-left">
-                                            <h4 className="ts-title"><a href="tour-detail.html">{property.region}, {property.country}</a></h4>
+                                            <h4 className="ts-title"><Link to={"/info/"+property.id}>{property.region}, {property.country}</Link></h4>
                                             <span>2 people, {property.surface} sqmt</span>
                                         </div>
                                         <div className="ts-caption-right">
